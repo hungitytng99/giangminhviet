@@ -2,6 +2,8 @@
 body
     color: $text-color
     font-family: $primary-font-family
+    font-size: 15px
+    background: #f3f3f3
 h1
     font-style: normal
     font-weight: bold
@@ -10,8 +12,8 @@ h1
 h2
     font-style: normal
     font-weight: bold
-    font-size: 32px
     line-height: 46px
+    margin: 0
 h3
     font-style: normal
     font-weight: bold
@@ -33,12 +35,12 @@ h6
     font-size: 20px
     line-height: 27px
 a:hover
-    color: $primary-4
+    color: $primary
     cursor: pointer
 .btn
     padding: 6px 0px
     width: 100px
-    background-color: $primary-4
+    background-color: $primary
     border-radius: 4px
 
     font-size: 14px
@@ -48,7 +50,7 @@ a:hover
 
 .btn:hover
     cursor: pointer
-    background-color: $primary-3
+    // background-color: $primary-3
     color: $white_1
     outline: none
 .btn:focus
@@ -56,10 +58,11 @@ a:hover
     box-shadow: none
 ul
     list-style: none
-    padding-left: 10px
+    margin: 0
+    padding: 0
 ul.has-liststyle li::before
     content: "\2022"
-    color: $primary-4
+    color: $primary
     font-weight: bold
     display: inline-block
     width: 1em
@@ -72,19 +75,28 @@ a
     color: $black
 p
     margin-bottom: 0px
+input
+    border: none
+input:focus
+    outline: none
 
-// For carousel custom
-.slide
-    display: flex
-    justify-content: center
-    align-items: center
-.none-select
-    -webkit-user-select: none
-    -ms-user-select: none
-    user-select: none
-@media (min-width: 1400px)
+.display-none
+    display: none
+.display-block
+    display: block
+.active
+    color: $primary
+.text_over_flow_1
+    display: -webkit-box !important
+    -webkit-line-clamp: 1
+    -webkit-box-orient: vertical
+    overflow: hidden
+    text-overflow: ellipsis
+
+@media (min-width: 1200px)
 .container
-    max-width: 1120px
+    max-width: 1140px
+
 @media screen and (max-width: 768px)
     .hide-on-768
         display: none

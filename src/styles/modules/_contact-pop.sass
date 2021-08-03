@@ -1,0 +1,44 @@
+.contact-pop
+    position: fixed
+    right: 20px
+    bottom: 110px
+    z-index: 999
+    &__box
+        display: block
+        width: 48px
+        height: 48px
+        background: linear-gradient( 90deg, #ff7600 0%, #ffac64 50%, #ff7600 100%)
+        border-radius: 50%
+        display: flex
+        align-items: center
+        justify-content: center
+        margin-top: 15px
+    &__icon
+        font-size: 20px
+        color: white
+        &.has-animation
+           animation: call-animation 1.5s infinite
+    &__img
+        width: 35px
+@keyframes call-animation
+    0%
+        transform: rotateZ(0deg)
+    5% 
+        transform: rotateZ(-30deg)
+    10%
+        transform: rotateZ(0deg)
+    15%
+        transform: rotateZ(30deg)
+    20%
+        transform: rotateZ(0deg)
+    25%
+        transform: rotateZ(-30deg)
+    30%
+        transform: rotateZ(0deg)
+    100%
+        transform: rotateZ(0deg)
+
+    
+
+
+  

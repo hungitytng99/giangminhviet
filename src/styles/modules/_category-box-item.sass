@@ -1,0 +1,40 @@
+@import "../_base_styles.sass"
+.category-box-item
+    &__box
+        overflow: hidden
+        position: relative
+    &__img
+        width: 100%
+        &-box
+            transition-duration: 0.5s
+    &__text
+        position: absolute
+        right: -25px
+        top: 15px
+        background-color: $white
+        padding: 10px 70px 10px 15px
+        transition-duration: 0.25s
+        &::before
+            position: absolute
+            content: ''
+            top: 49%
+            right: 0px
+            background-color: $black
+            width: 69px
+            height: 2px
+        &-header
+            font-size: 25px
+            font-weight: bold
+        &-more
+            font-size: 14px
+            text-align: end
+            color: #737373
+            &:hover
+                color: $black
+.category-box-item__box:hover > .category-box-item__text
+    transform: translateX(-25px)
+.category-box-item__box:hover > .category-box-item__text::before
+    background-color: $primary
+.category-box-item__box:hover > .category-box-item__img-box
+    transform: scale(1.1)
+    

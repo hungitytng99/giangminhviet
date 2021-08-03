@@ -11,13 +11,8 @@ app.prepare().then(() => {
   server.get('/', (req, res) => {
     return app.render(req, res, '/home-page');
   });
-
-  server.get('/login', (req, res) => {
-    return app.render(req, res, '/login');
-  });
-
-  server.get('/test', (req, res) => {
-    return app.render(req, res, '/test');
+  server.get('/product/:id', (req, res) => {
+    return app.render(req, res, '/product');
   });
 
   // server.get('/posts/:idx', (req, res) => {

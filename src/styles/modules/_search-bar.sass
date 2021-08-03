@@ -1,0 +1,23 @@
+@import "../_base_styles.sass"
+
+.search-bar
+    position: relative
+    &__input
+        padding: 8px 14px
+        padding-right: 26px
+        border: 1px solid $black_1
+        border-radius: 20px
+        font-size: 15px
+        &:hover
+            border-color: $white_3
+        &:focus
+            border-color: $primary
+    &__search-icon
+        position: absolute
+        right: 10px
+        top: 50%
+        transform: translateY(-50%)
+        color: #9ca3af
+        &:hover
+            cursor: pointer
+
