@@ -9,13 +9,13 @@ interface Props {
 const CategoryBoxLists: NextPage<Props> = ({ }) => {
     return (
         <Row className="category-box-lists">
-            <Col lg={4}>
+            <Col sm={6} md={4}>
                 <CategoryBoxItem/>
             </Col>
-            <Col lg={4}>
+            <Col sm={6} md={4}>
                 <CategoryBoxItem/>
             </Col>
-            <Col lg={4}>
+            <Col sm={6} md={4}>
                 <CategoryBoxItem/>
             </Col>
         </Row>

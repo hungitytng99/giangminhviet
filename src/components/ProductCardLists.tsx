@@ -8,16 +8,16 @@ interface Props {
 const ProductCardLists: NextPage<Props> = ({ }) => {
     return (
         <Row>
-            <Col lg={3}>
+            <Col xs={6} md={3}>
                 <ProductCard />
             </Col>
-            <Col lg={3}>
+            <Col xs={6} md={3}>
                 <ProductCard />
             </Col>
-            <Col lg={3}>
+            <Col xs={6} md={3}>
                 <ProductCard />
             </Col>
-            <Col lg={3}>
+            <Col xs={6} md={3}>
                 <ProductCard />
             </Col>
         </Row>

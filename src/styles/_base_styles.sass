@@ -92,17 +92,33 @@ input:focus
     -webkit-box-orient: vertical
     overflow: hidden
     text-overflow: ellipsis
-
+.hidden
+    display: none
+p.carousel-status
+    display: none
 @media (min-width: 1200px)
 .container
     max-width: 1140px
-
-@media screen and (max-width: 768px)
-    .hide-on-768
+@media screen and (max-width: 992px)
+    .hide-on-992
         display: none
+    .show-on-992
+        display: block
 @media screen and (max-width: 768px)
     .hide-on-768
         display: none
 @media screen and (max-width: 480px)
     .hide-on-480
         display: none
+@keyframes appear
+    from
+        opacity: 0
+    to
+        opacity: 1
+@keyframes move-right
+    from
+        opacity: 0.5
+        transform: translateX(-100%)
+    to
+        opacity: 1
+        transform: translateX(0)

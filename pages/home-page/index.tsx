@@ -44,7 +44,7 @@ const Home: NextPage<Props> = (props: any) => {
           </div>
           <div className="category-product__box">
             <Row>
-              <Col lg={3}>
+              <Col lg={3} className="hide-on-992">
                 <ul className="category-product__list">
                   <li className="category-product__item">
                     <a href="/" className="category-product__link">
