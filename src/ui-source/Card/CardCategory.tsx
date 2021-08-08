@@ -4,7 +4,7 @@ import { ImagesPath } from 'src/constants/ImagesPath';
 interface Props {
 
 }
-const CategoryBoxItem: NextPage<Props> = ({ }) => {
+const CardCategory: NextPage<Props> = ({ }) => {
     return (
         <a href="/" className="category-box-item">
             <div className="category-box-item__box">
@@ -25,4 +25,4 @@ const CategoryBoxItem: NextPage<Props> = ({ }) => {
     );
 }
 
-export default CategoryBoxItem;
+export default CardCategory;

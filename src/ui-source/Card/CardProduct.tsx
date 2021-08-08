@@ -4,7 +4,7 @@ import { ImagesPath } from 'src/constants/ImagesPath';
 interface Props {
 
 }
-const ProductCard: NextPage<Props> = ({ }) => {
+const CardProduct: NextPage<Props> = ({ }) => {
     return (
         <div className="product-card__box">
             <a href="#" className="product-card">
@@ -35,4 +35,4 @@ const ProductCard: NextPage<Props> = ({ }) => {
     );
 }
 
-export default ProductCard;
+export default CardProduct;

@@ -15,6 +15,6 @@
     "jsx": "preserve",
     "baseUrl": "."
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "server.js", "pages/home-page/index.tsx", "src/redux/actions/errors.js", "src/redux/store.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "server.js", "pages/product/index.js", "src/ui-source/Images/ImagesThumb.js"],
   "exclude": ["node_modules"]
 }

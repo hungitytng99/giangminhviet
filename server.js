@@ -11,10 +11,19 @@ app.prepare().then(() => {
   server.get('/', (req, res) => {
     return app.render(req, res, '/home-page');
   });
+
   server.get('/product/:id', (req, res) => {
     return app.render(req, res, '/product');
   });
 
+  server.get('/category/:id', (req, res) => {
+    return app.render(req, res, '/category');
+  });
+  
+  server.get('/search/:keyword', (req, res) => {
+    return app.render(req, res, '/search');
+  });
+  
   // server.get('/posts/:idx', (req, res) => {
   //   return app.render(req, res, '/home-page', req.params);
   // });
