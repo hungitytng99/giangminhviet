@@ -1,0 +1,39 @@
+.category-page
+    &__filter
+        &-header
+            font-weight: bold
+            margin: 4px 0px
+            font-size: 18px
+            color: $primary
+        &-desc
+            font-style: italic
+            margin-bottom: 8px
+        &-field
+            width: 250px
+            margin-left: 8px
+            &:first-child
+                margin-left: 0px
+        &-box
+            display: flex
+    &__title
+        font-weight: bold
+        font-size: 16px
+        color: $primary
+        white-space: nowrap
+        &-box
+            display: flex
+            justify-content: space-between
+            align-items: center
+            margin: 10px 0px 14px 0px
+            padding-bottom: 8px
+            border-bottom: 1px dashed $primary
+    &__sort
+        display: flex
+        align-items: center
+        &-select
+            width: 250px
+@media screen and (max-width: 400px)
+.category-page
+    &__sort
+        &-select
+            width: 190px

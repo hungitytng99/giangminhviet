@@ -8,6 +8,7 @@ import product_banner from 'public/product-banner.png'
 import zalo from 'public/zalo.png'
 import product from 'public/sp.jpg'
 import product_2 from 'public/sp-2.jpg'
+import phong_ngu from 'public/phong-ngu.jpg'
 
 const ImagesPath = {
     IMG_BANNER_1: img_banner_1,
@@ -19,6 +20,7 @@ const ImagesPath = {
     PRODUCT_BANNER: product_banner,
     ZALO: zalo,
     PRODUCT: product,
-    PRODUCT_2: product_2
+    PRODUCT_2: product_2,
+    PHONG_NGU: phong_ngu,
 }
 export { ImagesPath }
