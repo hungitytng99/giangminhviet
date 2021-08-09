@@ -7,10 +7,31 @@ import { Col, Container, Row } from 'react-bootstrap';
 import CategoryBoxLists from 'src/components/CategoryBoxLists';
 import ProductCardLists from 'src/components/ProductCardLists';
 import Contact from 'src/components/ContactPop';
+import { useEffect } from 'react';
+import { apiListProduct } from "src/data-source/product";
+import { useDispatch, useSelector } from 'react-redux';
+import { Product } from "src/services/product";
 
 interface Props {
 }
 const Home: NextPage<Props> = (props: any) => {
+  const dispatch = useDispatch();
+  const products = useSelector((state: any) => state.product);
+  setTimeout(() => {
+    console.log(">> ", products);
+  }, 3000)
+
+
+  useEffect(() => {
+    const test = async () => {
+      const action = Product.listProductAsync();
+      const actionResult = await dispatch(action);
+      console.log(actionResult);
+
+    }
+    test();
+
+  },[])
   return (
     <>
       <Contact />

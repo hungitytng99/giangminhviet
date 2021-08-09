@@ -10,7 +10,7 @@ import 'src/styles/globals.sass'
 // provider - redux
 import { Provider } from 'react-redux';
 import { createWrapper } from 'next-redux-wrapper'
-import store from '../src/redux/store'
+import store from 'src/stores/store'
 
 import type { AppProps } from 'next/app'
 
@@ -20,9 +20,6 @@ function MyApp({ Component, pageProps }: AppProps) {
        <Component {...pageProps} />
     </Provider>
   )
-}
+};
 
-const makestore = () => store;
-const wrapper = createWrapper(makestore);
-
-export default wrapper.withRedux(MyApp)
+export default MyApp
