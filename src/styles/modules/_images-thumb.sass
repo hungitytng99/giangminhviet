@@ -1,8 +1,11 @@
 .images-thumb
+    &__row
+        --bs-gutter-x: 0.5rem !important
     &__list
         display: flex
         justify-content: center
         align-items: center
+        flex-direction: column
     &__item
         width: 70px
         padding: 1px
@@ -14,4 +17,7 @@
         &-img
             width: 100%
             object-fit: contain
-
+    &__center
+        display: flex
+        justify-content: center
+        align-items: center

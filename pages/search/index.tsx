@@ -7,18 +7,49 @@ import { Col, Container, Row } from 'react-bootstrap';
 import CategoryBoxLists from 'src/components/CategoryBoxLists';
 import ProductCardLists from 'src/components/ProductCardLists';
 import Contact from 'src/components/ContactPop';
+import ContactPop from 'src/components/ContactPop';
 interface Props {
 }
-const Home: NextPage<Props> = (props: any) => {
-  return (
-    <>
-    </>
-  )
+const Search: NextPage<Props> = (props: any) => {
+    return (
+        <>
+            <Header />
+            <ContactPop />
+            <Container>
+                <Row>
+                    <div className="search">
+                        <div className="search__notify">
+                            Không có bất ký kết quả nào phù hợp với từ khóa "<span>aaa</span>"
+                        </div>
+                        <div className="search__notify">
+                            Có <span className="amount">4</span> kết quả tìm kiếm phù hợp với từ khóa "<span className="keyword">aaa</span>"
+                        </div>
+                        <div className="search__box">
+                            <input className="search__box-input" placeholder="Tìm kiếm..."></input>
+                            <button className="search__box-button">
+                                Tìm kiếm
+                            </button>
+                        </div>
+                        <ProductCardLists />
+                    </div>
+                </Row>
+
+                <Row className="search__other-result">
+                    <div className="special-product">
+                        <h2 className="special-product__text">
+                            <a href="/" className="special-product__link">Sản phẩm khác</a>
+                        </h2>
+                    </div>
+                    <ProductCardLists />
+                </Row>
+            </Container>
+        </>
+    )
 }
 export async function getStaticProps() {
 
-  return {
-    props: {}, // will be passed to the page component as props
-  }
+    return {
+        props: {}, // will be passed to the page component as props
+    }
 }
-export default Home
+export default Search

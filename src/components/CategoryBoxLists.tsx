@@ -9,13 +9,13 @@ const CategoryBoxLists: NextPage<Props> = ({ }) => {
     return (
         <Row className="category-box-lists">
             <Col sm={6} md={4}>
-                <CardCategory/>
+                <CardCategory category="Phòng ngủ" />
             </Col>
             <Col sm={6} md={4}>
-                <CardCategory/>
+                <CardCategory category="Phòng ngủ" />
             </Col>
             <Col sm={6} md={4}>
-                <CardCategory/>
+                <CardCategory category="Phòng ngủ" />
             </Col>
         </Row>
     );

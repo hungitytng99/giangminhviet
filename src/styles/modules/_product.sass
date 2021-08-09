@@ -4,75 +4,68 @@
     &__detail
         background-color: $white
         padding: 15px 0px
+        &-id 
+            font-weight: 700
         &-name
             font-size: 24px
-            margin-bottom: 16px
-        &-title
+        &-price
+            position: relative
+            display: inline-block
             height: 46px
             line-height: 36px
-            margin-top: 10px
-            color: red
             font-size: 24px
             font-weight: 700
             padding: 4px 0px
-            border-top: 1px solid $white-1
-            border-bottom: 1px solid $white-1
-            &.small
-                display: block
+            & span
+                position: absolute
+                left: 102%
+                top: 0
                 font-size: 16px
-                color: #b82800
-                &:hover
-                    color: #b82800
-                    cursor: pointer
-        &-info
-            margin-top: 10px
-            &-up
-                background-color: #eaeaea
-                transform: skew(-15deg)
-                padding: 10px 25px 0px
-                &-item
-                    transform: skew(15deg)
-                    display: flex
-                    &.--right
-                        padding-left: 5px
-            &-down
-                background-color: #eaeaea
-                transform: skew(15deg)
-                padding: 0px 25px 10px
-                &-item
-                    transform: skew(-15deg)
-                    display: flex
-                    &.--right
-                        padding-left: 5px
-            &-title
-                min-width: 130px
-                font-weight: bold
-                color: #546081
-            &-status
-                font-weight: bold
-                color: $primary
+
         &-contact
+            display: flex
+            justify-content: center
             &-text
                 font-weight: 600
                 padding: 6px 0px
                 text-transform: uppercase
             &-link
+                width: 70%
+                margin: 10px 0px
                 text-transform: uppercase
                 display: block
                 background: #ff7600
                 color: #fff
                 font-size: 16px
-                padding: 9px 20px
+                padding: 10px 20px
                 font-weight: bold
                 transition: color 300ms ease-in-out 0s, background-color 300ms ease-in-out 0s, background-position 300ms ease-in-out 0s
-                width: 160px
                 text-align: center
+                border-radius: 24px
                 &:hover
                     color: #fff
                     background-color: #b82800
-        &-info-detail
-            margin-top: 10px
+        &-highlight
+            font-size: 16px
+            font-weight: 700
+            margin: 6px 0px 4px 0px
+        &-handmade
+            &-icon
+                margin-right: 8px
+            & span
+                font-size: 15px
+        &-material
+            &-icon
+                margin-right: 9px
+            & span
+                font-size: 15px
+
+        &-detail
+            &-icon
+                margin-right: 9px
+            & span
+                font-size: 15px
+
     &__related-product
-        display: none
         padding-top: 75px
         background-color: $white

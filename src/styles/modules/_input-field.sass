@@ -1,0 +1,37 @@
+.input-field
+    margin-bottom: 10px
+    &__box
+        display: flex
+        align-items: center
+    &__label
+        width: 100px
+    &__input
+        flex: 1
+        border: 1px solid #EAEAEA
+        padding: 8px 10px
+        border-radius: 4px
+
+        &:hover
+            border-color: #c2c2c2
+        &.error
+            border-color: red
+        &:focus
+            border-color: #80bdff
+            box-shadow: 0 0 0 0.1rem rgb(0 123 255 / 25%)
+            outline: none
+        &.disabled
+            background-color: #F2F2F2
+            &:hover
+                border: 1px solid #EAEAEA
+    &__error
+        margin-left: 100px
+        color: red
+        padding: 4px 0px
+        display: flex
+        align-items: center
+        &-icon
+            margin-right: 6px
+    &__required
+        color: red
+        margin-left: 4px
+        font-size: 13px

@@ -1,22 +1,24 @@
-import { NextPage } from 'next';
-import { Carousel } from 'react-responsive-carousel';
 import { ImagesPath } from 'src/constants/ImagesPath';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Header from 'src/components/Layout/Header';
 import { Breadcrumb, Col, Container, Row } from 'react-bootstrap';
-import CategoryBoxLists from 'src/components/CategoryBoxLists';
 import ProductCardLists from 'src/components/ProductCardLists';
-import Contact from 'src/components/ContactPop';
 import ContactPop from 'src/components/ContactPop';
-import Multiselect from 'multiselect-react-dropdown';
 import Select from 'react-select'
-import makeAnimated from 'react-select/animated';
 
 const Category = (props) => {
     const filterPrice = [
         { value: 'All', label: 'Tất cả' },
         { value: 'strawberry', label: 'Strawberry' },
         { value: 'vanilla', label: 'Vanilla' }
+    ]
+    const filterSort = [
+        { value: 'new', label: 'Newest' },
+        { value: 'old', label: 'Oldest' }
+    ]
+    const filterMaterial = [
+        { value: 'material-first', label: 'Material-1' },
+        { value: 'material-second', label: 'Material-2' }
     ]
     return (
         <>
@@ -33,6 +35,10 @@ const Category = (props) => {
                 </Row>
                 <Row className="category-page__banner">
                     <img src={ImagesPath.PHONG_NGU.src} alt="phong ngu" />
+                    <div className="category-page__banner-desc">
+                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Recusandae, harum? Dignissimos dolorem temporibus quasi quam corrupti earum hic suscipit obcaecati. Esse hic iusto quasi officia unde quas corporis in praesentium?
+                    </div>
+
                 </Row>
                 <div className="category-page__filter">
                     <div className="category-page__filter-header">
@@ -45,13 +51,13 @@ const Category = (props) => {
                         <div className="category-page__filter-field">
                             <Select
                                 options={filterPrice}
-                                placeholder="Lọc giá"
+                                placeholder="Category"
                             />
                         </div>
                         <div className="category-page__filter-field">
                             <Select
                                 options={filterPrice}
-                                placeholder="Loại"
+                                placeholder="Material"
                             />
                         </div>
                     </div>
@@ -62,8 +68,8 @@ const Category = (props) => {
                         <div className="category-page__sort">
                             <div className="category-page__sort-select">
                                 <Select
-                                    options={filterPrice}
-                                    placeholder="Sắp xếp"
+                                    options={filterSort}
+                                    placeholder="Sort"
                                 />
                             </div>
                         </div>

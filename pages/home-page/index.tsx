@@ -7,12 +7,13 @@ import { Col, Container, Row } from 'react-bootstrap';
 import CategoryBoxLists from 'src/components/CategoryBoxLists';
 import ProductCardLists from 'src/components/ProductCardLists';
 import Contact from 'src/components/ContactPop';
+
 interface Props {
 }
 const Home: NextPage<Props> = (props: any) => {
   return (
     <>
-      <Contact/>
+      <Contact />
       <Carousel
         autoPlay={true}
         showThumbs={false}
@@ -73,7 +74,7 @@ const Home: NextPage<Props> = (props: any) => {
               </Col>
               <Col lg={9}>
                 <Row className="category-product__list-box">
-                  <ProductCardLists/>
+                  <ProductCardLists />
                 </Row>
               </Col>
             </Row>

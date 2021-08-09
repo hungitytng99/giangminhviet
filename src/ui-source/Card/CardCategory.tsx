@@ -2,9 +2,11 @@ import React from 'react';
 import { NextPage } from "next";
 import { ImagesPath } from 'src/constants/ImagesPath';
 interface Props {
-
+    category: string,
+    more ?: string,
 }
-const CardCategory: NextPage<Props> = ({ }) => {
+const CardCategory: NextPage<Props> = ( props ) => {
+    const { category, more } = props
     return (
         <a href="/" className="category-box-item">
             <div className="category-box-item__box">
@@ -13,10 +15,10 @@ const CardCategory: NextPage<Props> = ({ }) => {
                 </div>
                 <div className="category-box-item__text">
                     <div className="category-box-item__text-header">
-                        Phòng Khách
+                        {category}
                     </div>
                     <div className="category-box-item__text-more">
-                        Xem sản phẩm
+                        {more}
                     </div>
                 </div>
             </div>

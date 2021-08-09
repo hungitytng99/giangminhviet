@@ -1,0 +1,39 @@
+.contact-form
+    &__header
+        display: flex
+        justify-content: space-between
+        align-items: center
+        &-text
+            text-align: center
+            margin-bottom: 10px
+            font-weight: bold
+        &-close
+            font-size: 22px
+            margin-bottom: 20px
+            &:hover
+                cursor: pointer
+        &-img
+            height: 50px
+        & span
+            display: block
+    &__btn
+        background-color: transparent
+        border: none
+        outline: none
+        padding: 8px 0px
+        width: 100px
+        transition: all 0.3s
+        border-radius: 4px
+        margin-left: 10px
+        &.cancel
+            border: 1px solid #EAEAEA
+            &:hover
+                background-color: #f5f5f5
+
+        &.send
+            background-color: $primary
+            color: $white
+            &:hover
+                background-color: #ff5100
+        &-group
+            text-align: right

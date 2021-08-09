@@ -53,14 +53,14 @@ const Header: NextPage<Props> = ({ }) => {
                     <FontAwesomeIcon className="header-bars__icon" icon={["fas", "bars"]} />
                 </div>
                 <div className="header-left">
-                    <a href="#" className="header-left__logo">
+                    <a href="/" className="header-left__logo">
                         <img className="header-center__item-logo" src={ImagesPath.LOGO_NGANG.src} alt="logo giang minh viet" />
                     </a>
                 </div>
                 <div className="header-center hide-on-992">
                     <ul className="header-center__list">
                         <li className="header-center__item">
-                            <a href="#" className="header-center__item-link">
+                            <a href="/" className="header-center__item-link">
                                 Trang chủ
                             </a>
                         </li>
@@ -122,7 +122,9 @@ const Header: NextPage<Props> = ({ }) => {
                     </ul>
                 </div>
                 <div className="header-right">
-                    <SearchBar />
+                    <div className="hide-on-576">
+                        <SearchBar />
+                    </div>
                 </div>
             </Container>
             <Modal
@@ -141,7 +143,7 @@ const Header: NextPage<Props> = ({ }) => {
                             <a href="/" className="category-mobile__item-link"> Trang chủ </a>
                         </li>
                         <li className="category-mobile__item">
-                            <CategoryCollapse parent={{ label: "Sản phẩm", href: "/product" }} children={CATEGORY_LIST}/>
+                            <CategoryCollapse parent={{ label: "Sản phẩm", href: "/product" }} children={CATEGORY_LIST} />
                         </li>
                         <li className="category-mobile__item">
                             <a href="/about-us" className="category-mobile__item-link"> Giới thiệu</a>

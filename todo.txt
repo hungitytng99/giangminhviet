@@ -1,0 +1,23 @@
+- ten
+- sdt
+- mail
+- message
+
+/product
+- chuyen san pham cung loai xuong duoi xx
+- anh thumb ben trai xx
+- title se chuyen sang ben phai cua anh san pham xx
++ title
++ khoang gia
++ material
++ ma san pham
++ lien he ngay
++ detail desc
+
+/category 
++ them desc duoi anh banner
++ Loc theo category con
++ Loc theo material
++ sap xep theo h
+
+Lien he hien thi popup
