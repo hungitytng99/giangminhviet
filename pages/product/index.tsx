@@ -4,12 +4,23 @@ import { ImagesPath } from 'src/constants/ImagesPath';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import ImagesThumb from 'src/ui-source/Images/ImagesThumb';
 import ContactPop from 'src/components/ContactPop';
-import CardRelateProduct from 'src/ui-source/Card/CardRelateProduct';
 import ProductCardLists from 'src/components/ProductCardLists';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-const Product = () => {
+import { NextPage } from 'next';
+import { product } from 'src/interface';
+
+interface Props {
+  mainCategory?: string,
+  subCategory?: string,
+  product?: product,
+  relatedProducts?: Array<product>,
+}
+
+const Product: NextPage<Props> = (props: any) => {
   const img = { width: 400, height: 250, zoomWidth: 500, img: ImagesPath.PRODUCT.src };
   const imgList = [{ src: ImagesPath.PRODUCT.src, alt: "" }, { src: ImagesPath.PRODUCT_2.src, alt: "" }, { src: ImagesPath.SP.src, alt: "" }]
+  
+  
   return (
     <>
       <Header />

@@ -1,17 +1,18 @@
 import React from 'react';
 import { NextPage } from "next";
-import { ImagesPath } from 'src/constants/ImagesPath';
 interface Props {
     category: string,
     more ?: string,
+    image: string,
+    href: string,
 }
 const CardCategory: NextPage<Props> = ( props ) => {
-    const { category, more } = props
+    const { category, more = "Xem sản phẩm", image, href } = props
     return (
-        <a href="/" className="category-box-item">
+        <a href={href} className="category-box-item">
             <div className="category-box-item__box">
-                <div className="category-box-item__img-box">
-                    <img src={ImagesPath.PRODUCT_BANNER.src} alt="san pham" className="category-box-item__img" />
+                <div className="img-box">
+                    <img src={image} alt="san pham" className="img" />
                 </div>
                 <div className="category-box-item__text">
                     <div className="category-box-item__text-header">

@@ -23,12 +23,44 @@ export const apiCreateProduct = async (params) => {
 export const apiListProduct = async (params) => {
     try {
         const response = await GET("/product", params, { isFullPath: false });
-        // const response = await getProduct();
         return {
             state: REQUEST_STATE.SUCCESS,
-            data: response
+            data: response.data
         };
 
+    } catch (error) {
+        console.log("error", error);
+        return {
+            state: REQUEST_STATE.ERROR,
+            data: []
+        };
+    }
+};
+
+export const apiListHotProduct = async (params) => {
+    try {
+        const response = await GET("/hot-product", params, { isFullPath: false });
+        return {
+            state: REQUEST_STATE.SUCCESS,
+            data: response.data
+        };
+
+    } catch (error) {
+        console.log("error", error);
+        return {
+            state: REQUEST_STATE.ERROR,
+            data: []
+        };
+    }
+};
+
+export const apiListProductByCategoryId = async (categoryId, params) => {
+    try {
+        const response = await GET("/product/get-by-main-category-id/" + categoryId, params);
+        return {
+            state: REQUEST_STATE.SUCCESS,
+            data: response.data
+        };
     } catch (error) {
         console.log("error", error);
         return {

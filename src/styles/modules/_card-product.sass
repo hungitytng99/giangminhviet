@@ -1,6 +1,8 @@
 .card-product
     display: block
     margin-bottom: 15px
+    &:hover
+        cursor: pointer
     &__box
         background-color: $white
     &__img
@@ -8,6 +10,7 @@
     &__img-box
         position: relative
         overflow: hidden
+        display: block
     &__option
         position: absolute
         top: 50%
@@ -20,6 +23,7 @@
         height: 0px
         transition: 0.5s
         opacity: 0
+        z-index: 10
         &-item
             padding: 10px 0px
             width: 45%

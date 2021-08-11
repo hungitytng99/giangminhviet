@@ -7,10 +7,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import CATEGORY_LIST from 'src/constants/CategoryList';
 import Modal from 'react-modal';
 import CategoryCollapse from './CategoryCollapse';
+import { category } from 'src/interface';
 
-interface Props {
-
-}
 const customStyles = {
     content: {
         top: '0',
@@ -31,7 +29,11 @@ const customStyles = {
     }
 };
 Modal.setAppElement('#__next');
-const Header: NextPage<Props> = ({ }) => {
+
+interface Props {
+    listCategory: Array<any>,
+}
+const Header: NextPage<Props> = ({ listCategory = [] }) => {
     const [categoryIsOpen, setCategoryIsOpen] = useState(false);
     const [isShowCategoryDropdown, setIsShowCategoryDropdown] = useState(false);
     function openCategoryModal() {
@@ -61,48 +63,43 @@ const Header: NextPage<Props> = ({ }) => {
                     <ul className="header-center__list">
                         <li className="header-center__item">
                             <a href="/" className="header-center__item-link">
-                                Trang chủ
+                                Home
                             </a>
                         </li>
                         <li className="header-center__item has-dropdown" onMouseOver={showDropDown} onMouseOut={hideDropDown}>
-                            <a href="#" className={isShowCategoryDropdown ? "header-center__item-link active" : "header-center__item-link"}>
-                                <span>Sản phẩm </span>
+                            <a href="/product" className={isShowCategoryDropdown ? "header-center__item-link active" : "header-center__item-link"}>
+                                <span>Product </span>
                                 <FontAwesomeIcon className="header-center__item-down" icon={["fas", "sort-down"]} />
                             </a>
                             <div className={isShowCategoryDropdown ? "product__dropdown" : "display-none"}>
                                 <Row>
-                                    {CATEGORY_LIST.map((categoryItem) => {
-                                        return (
-                                            <Col key={categoryItem.id} >
-                                                <div className="product__dropdown-category">
-                                                    <a href={categoryItem.href} className="product__dropdown-category-title">
-                                                        {categoryItem.title}
-                                                    </a>
-                                                    <ul className="product__dropdown-category-list">
-
-                                                        {categoryItem.child.map((item) => {
-                                                            return (
-                                                                <li key={item.id} className="product__dropdown-category-item">
-                                                                    <a href={item.href}>
-                                                                        {item.label}
-                                                                    </a>
-                                                                </li>
-                                                            )
-                                                        })}
-                                                    </ul>
-                                                    <div className="product__dropdown-category-title is-only">
-                                                        <a href={categoryItem.saleLink}>
-                                                            {categoryItem.saleTitle}
+                                    {
+                                        listCategory.map((category: category) => {
+                                            return (
+                                                <Col key={category.id} >
+                                                    <div className="product__dropdown-category">
+                                                        <a href={category.name} className="product__dropdown-category-title">
+                                                            {category.name}
                                                         </a>
+                                                        <ul className="product__dropdown-category-list">
+                                                            {category.sub_category.map((item) => {
+                                                                return (
+                                                                    <li key={item.id} className="product__dropdown-category-item">
+                                                                        <a href={item.href}>
+                                                                            {item.name}
+                                                                        </a>
+                                                                    </li>
+                                                                )
+                                                            })}
+                                                        </ul>
                                                     </div>
-                                                </div>
-                                            </Col>
-                                        )
-                                    })}
+                                                </Col>
+                                            )
+                                        })
+                                    }
                                     <Col>
                                         <a href="#">
                                             <img className="product__dropdown-banner" src={ImagesPath.PRODUCT_BANNER.src} alt="giang minh viet product banner" />
-
                                         </a>
                                     </Col>
 
@@ -110,13 +107,13 @@ const Header: NextPage<Props> = ({ }) => {
                             </div>
                         </li>
                         <li className="header-center__item">
-                            <a href="#" className="header-center__item-link">
-                                Giới thiệu
+                            <a href="/about-us" className="header-center__item-link">
+                                About us
                             </a>
                         </li>
                         <li className="header-center__item">
-                            <a href="#" className="header-center__item-link">
-                                Liên hệ
+                            <a href="/contact" className="header-center__item-link">
+                                Contact
                             </a>
                         </li>
                     </ul>
@@ -140,18 +137,17 @@ const Header: NextPage<Props> = ({ }) => {
                     </div>
                     <ul className="category-mobile__list">
                         <li className="category-mobile__item">
-                            <a href="/" className="category-mobile__item-link"> Trang chủ </a>
+                            <a href="/" className="category-mobile__item-link"> Home </a>
                         </li>
                         <li className="category-mobile__item">
-                            <CategoryCollapse parent={{ label: "Sản phẩm", href: "/product" }} children={CATEGORY_LIST} />
+                            <CategoryCollapse categoryNavItem={{ label: "Product", href: "/product" }} listCategory={listCategory} />
                         </li>
                         <li className="category-mobile__item">
-                            <a href="/about-us" className="category-mobile__item-link"> Giới thiệu</a>
+                            <a href="/about-us" className="category-mobile__item-link"> About us</a>
                         </li>
                         <li className="category-mobile__item">
-                            <a href="/contact" className="category-mobile__item-link"> Liên hệ</a>
+                            <a href="/contact" className="category-mobile__item-link"> Contact</a>
                         </li>
-
                     </ul>
                 </div>
             </Modal>

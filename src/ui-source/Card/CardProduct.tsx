@@ -4,6 +4,7 @@ import { ImagesPath } from 'src/constants/ImagesPath';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ContactForm from 'src/components/ContactForm';
 import Modal from 'react-modal';
+import { product } from 'src/interface';
 
 const customStyles = {
     content: {
@@ -23,46 +24,80 @@ const customStyles = {
 };
 
 interface Props {
+    detailText?: string,
+    contactText?: string,
+    discount?: string,
+    product: product,
 }
 
 Modal.setAppElement('#__next');
+const defaultProduct = {
+    id: 0,
+    title: "",
+    description: "",
+    main_image: "",
+    all_image: "",
+    price: "",
+    material: "",
+    sub_category: "",
+    main_category: "",
+    slug: "/"
+}
 const CardProduct: NextPage<Props> = (props) => {
+    const { detailText = "Detail", product = defaultProduct,
+        contactText = "Contact", discount = 0 } = props;
     const [contactModal, setContactModal] = useState(false);
-    const showContactModal = (e: SyntheticEvent) => {
+    const [productName, setProductName] = useState("");
+
+    const showContactModal = (e: any) => {
         e.stopPropagation();
+        setProductName(e.currentTarget.dataset.productname);
+        console.log(e.currentTarget.dataset.productname);
+        
         setContactModal(true);
     }
+
     const hideContactModal = () => {
         setContactModal(false);
     }
 
-    const closeContactForm = (e : SyntheticEvent) => {
+    const closeContactForm = (e: SyntheticEvent) => {
         e.preventDefault();
         setContactModal(false);
     }
+
+    const redirectToDetailProduct = (e: any) => {
+        location.href = e.currentTarget.dataset.href
+    }
+
     return (
         <div className="card-product__box">
-            <div className="card-product">
+            <div onClick={redirectToDetailProduct} data-href={product.slug ? product.slug : "/"} className="card-product">
                 <div className="card-product__img-box">
-                    <img src={ImagesPath.PRODUCT_BANNER.src} alt="" className="card-product__img" />
+                    <div className="img-box">
+                        <img src={product.main_image} alt={product.title} className="card-product__img img" />
+                    </div>
                     <div className="card-product__option">
-                        <a href="/" className="card-product__option-item">Chi tiết</a>
-                        <div onClick={showContactModal} className="card-product__option-item">Liên hệ</div>
+                        <a href={product.slug} className="card-product__option-item">{detailText}</a>
+                        <div onClick={showContactModal} data-productname={product.title} className="card-product__option-item">{contactText}</div>
                     </div>
-                    <div className="card-product__discount">
-                        16%
-                    </div>
+                    {
+                        discount != 0 &&
+                        <div className="card-product__discount">
+                            {discount}
+                        </div>
+                    }
                 </div>
                 <div className="card-product__name text_over_flow_1">
-                    Bàn gỗ trà tự nhiên 5CBT-136
+                    {product.title}
                 </div>
                 <div className="card-product__price">
-                    <div className="card-product__price-new">
-                        6.590.000
-                    </div>
-                    <div className="card-product__price-old">
-                        7.890.000
-                    </div>
+                    {
+                        product.price &&
+                        <div className="card-product__price-new">
+                            {product.price}
+                        </div>
+                    }
                 </div>
             </div>
             <Modal
@@ -81,7 +116,7 @@ const CardProduct: NextPage<Props> = (props) => {
                     </div>
                 </div>
                 <div className="contact-form__form">
-                    <ContactForm closeContact={closeContactForm} product="Giường ngủ hiện đại" />
+                    <ContactForm closeContact={closeContactForm} productName={productName} />
                 </div>
             </Modal>
         </div>

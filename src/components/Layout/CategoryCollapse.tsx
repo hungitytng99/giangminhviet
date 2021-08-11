@@ -3,12 +3,13 @@ import { NextPage } from "next";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ImagesPath } from 'src/constants/ImagesPath';
 import { Collapse } from 'react-bootstrap';
+import { category } from 'src/interface';
 
 interface Props {
-    parent: any,
-    children: any,
+    categoryNavItem: any,
+    listCategory: any,
 }
-const CategoryCollapse: NextPage<Props> = ({ parent, children }) => {
+const CategoryCollapse: NextPage<Props> = ({ categoryNavItem, listCategory }) => {
     const [open, setOpen] = useState(false);
     return (
         <div className="category-collapse">
@@ -17,25 +18,25 @@ const CategoryCollapse: NextPage<Props> = ({ parent, children }) => {
                 aria-expanded={open}
                 className="category-collapse__header"
             >
-                <div>{parent.label}</div>
+                <div>{categoryNavItem.label}</div>
                 <i className="category-collapse__down-icon fas fa-angle-down"></i>
 
             </div>
             <Collapse in={open}>
                 <ul className="category-collapse__list">
-                    {children.map((item: any) => {
+                    {listCategory.map((itemCategory: category) => {
                         return (
-                            <li key={item.id} className="category-collapse__item">
-                                <a href={item.href} className="category-collapse__item-link">
-                                    {item.title}
+                            <li key={itemCategory.id} className="category-collapse__item">
+                                <a href={itemCategory.href} className="category-collapse__item-link">
+                                    {itemCategory.name}
                                 </a>
                                 <ul className="category-collapse__item-content">
                                     {
-                                        item.child.map((child : any) => {
+                                        itemCategory.sub_category.map((sub_category_item : any) => {
                                             return (
-                                                <li key={child.id} className="category-collapse__item-child">
-                                                    <a href={child.href} className="category-collapse__item-child-link">
-                                                        {child.label}
+                                                <li key={sub_category_item.id} className="category-collapse__item-child">
+                                                    <a href={sub_category_item.href} className="category-collapse__item-child-link">
+                                                        {sub_category_item.name}
                                                     </a>
                                                 </li>
                                             )

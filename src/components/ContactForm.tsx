@@ -15,11 +15,11 @@ const contactSchema = Yup.object().shape({
     email: Yup.string().email('Please enter a valid email').required('This field is required'),
 });
 interface Props {
-    product?: string,
+    productName?: string,
     closeContact?: any
 }
 const ContactForm: NextPage<Props> = (props) => {
-    const { product, closeContact = () => { } } = props;
+    const { productName, closeContact = () => { } } = props;
     return (
         <div className="contact-form">
             <Formik
@@ -37,7 +37,7 @@ const ContactForm: NextPage<Props> = (props) => {
                 {({ errors, touched }) => (
                     <Form>
                         {
-                            product &&
+                            productName &&
                             <InputField
                                 errors={errors}
                                 touched={touched}
@@ -45,7 +45,7 @@ const ContactForm: NextPage<Props> = (props) => {
                                 name="product"
                                 placeholder="Product name"
                                 isRequired={true}
-                                value={"Giường ngủ hiện đại"}
+                                value={productName}
                                 disabled={true}
                             />
                         }

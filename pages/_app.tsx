@@ -9,8 +9,7 @@ import 'src/styles/_base_styles.sass'
 import 'src/styles/globals.sass'
 // provider - redux
 import { Provider } from 'react-redux';
-import { createWrapper } from 'next-redux-wrapper'
-import store from 'src/stores/store'
+import store from 'src/data-stores/store'
 
 import type { AppProps } from 'next/app'
 

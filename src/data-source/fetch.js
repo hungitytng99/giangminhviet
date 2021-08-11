@@ -11,13 +11,13 @@ export const getOptions = (options) => {
         ...options
     };
     
-    if (!token) {
-        const source = sessionStorage.getItem("token");
+    // if (!token) {
+    //     const source = sessionStorage.getItem("token");
 
-        if (source) {
-            token = JSON.parse(source).value;
-        }
-    }
+    //     if (source) {
+    //         token = JSON.parse(source).value;
+    //     }
+    // }
 
     if (token) {
         opts.headers.Authorization = "Bearer " + token;

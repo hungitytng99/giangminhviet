@@ -7,13 +7,20 @@ export interface product {
     id: number,
     title: string,
     description: string,
-    image: string,
+    main_image: string,
+    other_image?: Array<string>,
     price: string,
     material: string,
     sub_category: string,
-    main_category:  string
+    main_category:  string,
+    slug: string
 }
 
-export interface paramsGetListProduct {
-    
+export interface category {
+    id: number,
+    name: string,
+    description?: string,
+    image: string,
+    href: string
+    sub_category: Array<any>
 }
