@@ -8,9 +8,26 @@
             margin-top: 15px
     &__item
         padding: 10px
+        &.active
+            color: $primary
     &__img
         width: 100%
     &__link
         &:hover
             cursor: pointer
             color: $primary
+    &__more
+        display: flex
+        justify-content: center
+        margin-top: 8px
+        &-btn 
+            transition: all 0.3s
+            border: 1px solid $primary
+            background-color: $primary
+            color: $white
+            width: 100px
+            padding: 8px 0px
+            border-radius: 5px
+            &:hover
+                cursor: pointer
+                background-color: #b82800

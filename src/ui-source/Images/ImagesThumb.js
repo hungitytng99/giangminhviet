@@ -17,13 +17,11 @@ const ImagesThumb = ({ listImages }) => {
     const [listImagesStatus, setlistImagesStatus] = useState(listImages)
     const [currentImageSelected, setCurrentImageSelected] = useState(listImages[0]);
     const selectImage = (e) => {
-        console.log(e.target.dataset.imgid);
         let indexImgSelected = Number(e.target.dataset.imgid);
         let newListImage = listImages.map((img, index) => {
             img.isSelected = index == indexImgSelected
             return img;
         });
-        console.log(newListImage);
         setCurrentImageSelected(newListImage[indexImgSelected]);
         setlistImagesStatus(newListImage);
     }

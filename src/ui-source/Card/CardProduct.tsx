@@ -52,8 +52,6 @@ const CardProduct: NextPage<Props> = (props) => {
     const showContactModal = (e: any) => {
         e.stopPropagation();
         setProductName(e.currentTarget.dataset.productname);
-        console.log(e.currentTarget.dataset.productname);
-        
         setContactModal(true);
     }
 

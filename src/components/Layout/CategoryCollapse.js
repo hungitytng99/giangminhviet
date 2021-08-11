@@ -5,11 +5,8 @@ import { ImagesPath } from 'src/constants/ImagesPath';
 import { Collapse } from 'react-bootstrap';
 import { category } from 'src/interface';
 
-interface Props {
-    categoryNavItem: any,
-    listCategory: any,
-}
-const CategoryCollapse: NextPage<Props> = ({ categoryNavItem, listCategory }) => {
+
+const CategoryCollapse =  ({ categoryNavItem, listCategory }) => {
     const [open, setOpen] = useState(false);
     return (
         <div className="category-collapse">
@@ -24,7 +21,7 @@ const CategoryCollapse: NextPage<Props> = ({ categoryNavItem, listCategory }) =>
             </div>
             <Collapse in={open}>
                 <ul className="category-collapse__list">
-                    {listCategory.map((itemCategory: category) => {
+                    {listCategory.map((itemCategory) => {
                         return (
                             <li key={itemCategory.id} className="category-collapse__item">
                                 <a href={itemCategory.href} className="category-collapse__item-link">
@@ -32,7 +29,7 @@ const CategoryCollapse: NextPage<Props> = ({ categoryNavItem, listCategory }) =>
                                 </a>
                                 <ul className="category-collapse__item-content">
                                     {
-                                        itemCategory.sub_category.map((sub_category_item : any) => {
+                                        itemCategory.sub_category.data.map((sub_category_item) => {
                                             return (
                                                 <li key={sub_category_item.id} className="category-collapse__item-child">
                                                     <a href={sub_category_item.href} className="category-collapse__item-child-link">

@@ -34,11 +34,26 @@ export const mainCategoryService = {
 }
 
 export const filterSubCategory = (listSubCategory, nameMainCategory) => {
-    return listSubCategory.map((subCategory) => {
+    listSubCategory = listSubCategory.map((subCategory) => {
         return {
             id: subCategory.id,
             name: subCategory.name,
-            href: nameMainCategory + "/" + subCategory.name
+            href: nameMainCategory + "/" + subCategory.name,
+            isSelected: false,
         }
     })
+    listSubCategory = {
+        currentSelected: "all",
+        pageNumber: 2,
+        hasMoreProducts: true,
+        data: [
+            {
+                id: "all",
+                name: "All",
+                isSelected: true,
+            },
+            ...listSubCategory
+        ]
+    }
+    return listSubCategory;
 }

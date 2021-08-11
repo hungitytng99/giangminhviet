@@ -70,9 +70,25 @@ export const apiListProductByCategoryId = async (categoryId, params) => {
     }
 };
 
-export const apiListProductBySubCategoryName = async (categoryName, params) => {
+export const apiListProductByMainCategoryName = async (categoryName, params) => {
     try {
-        const response = await GET("/product/get-by-category-name/" + categoryName, params);
+        const response = await GET("/product/get-by-main-category-name/" + categoryName, params);
+        return {
+            state: REQUEST_STATE.SUCCESS,
+            data: response.data
+        };
+    } catch (error) {
+        console.log("error", error);
+        return {
+            state: REQUEST_STATE.ERROR,
+            data: []
+        };
+    }
+};
+
+export const apiListProductBySubCategoryName = async (params) => {
+    try {
+        const response = await GET("/product/get-by-category-name/" , params);
         return {
             state: REQUEST_STATE.SUCCESS,
             data: response.data

@@ -30,10 +30,7 @@ const customStyles = {
 };
 Modal.setAppElement('#__next');
 
-interface Props {
-    listCategory: Array<any>,
-}
-const Header: NextPage<Props> = ({ listCategory = [] }) => {
+const Header = ({ listCategory = [] }) => {
     const [categoryIsOpen, setCategoryIsOpen] = useState(false);
     const [isShowCategoryDropdown, setIsShowCategoryDropdown] = useState(false);
     function openCategoryModal() {
@@ -74,7 +71,7 @@ const Header: NextPage<Props> = ({ listCategory = [] }) => {
                             <div className={isShowCategoryDropdown ? "product__dropdown" : "display-none"}>
                                 <Row>
                                     {
-                                        listCategory.map((category: category) => {
+                                        listCategory.map((category) => {
                                             return (
                                                 <Col key={category.id} >
                                                     <div className="product__dropdown-category">
@@ -82,7 +79,7 @@ const Header: NextPage<Props> = ({ listCategory = [] }) => {
                                                             {category.name}
                                                         </a>
                                                         <ul className="product__dropdown-category-list">
-                                                            {category.sub_category.map((item) => {
+                                                            {category.sub_category.data.map((item) => {
                                                                 return (
                                                                     <li key={item.id} className="product__dropdown-category-item">
                                                                         <a href={item.href}>

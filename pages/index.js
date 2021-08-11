@@ -1,6 +1,7 @@
+
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
 import { ImagesPath } from 'src/constants/ImagesPath';
-import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Header from 'src/components/Layout/Header';
 import { Col, Container, Row } from 'react-bootstrap';
 import CategoryBoxLists from 'src/components/CategoryBoxLists';
@@ -8,53 +9,82 @@ import ProductCardLists from 'src/components/ProductCardLists';
 import Contact from 'src/components/ContactPop';
 import { mainCategoryService } from 'src/data-services/category';
 import { productService } from 'src/data-services/product';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import FullPageLoading from 'src/ui-source/Loading/FullPageLoading'
-import { Configs } from 'src/app-configs/index'
-import { useDispatch, useSelector } from 'react-redux';
 import { listProductBySubCategoryName, listProductByMainCategoryId } from 'src/data-stores/slices/productSlice'
 import { unwrapResult } from '@reduxjs/toolkit';
-import { addProductWithCategory } from 'src/data-stores/slices/productSlice'
+import { useDispatch } from "react-redux";
 const Home = (props) => {
   const { listMainCategory, listAllCategoryWithProduct, listHotProducts } = props;
-  console.log("BIG DATA:  ", listAllCategoryWithProduct);
-  const dispatch = useDispatch();
-  dispatch(addProductWithCategory(listAllCategoryWithProduct));
-  const listAllCategoryWithProductState = useSelector(state => state.product.current);
-
+  const [listAllCategoryWithProductState, setListAllCategoryWithProductState] = useState(listAllCategoryWithProduct);
   const [isShowLoading, setIsShowLoading] = useState(false);
+  console.log(listAllCategoryWithProduct);
 
   const filterProductBySubCategoryName = async (e) => {
     try {
-      let subCategoryName = e.target.dataset.id;
+      let subCategoryName = e.target.dataset.id || '';
       let mainCategoryName = e.target.dataset.maincategoryname || '';
-      let mainCategoryId = e.target.dataset.maincategoryid || '';
 
       setIsShowLoading(true);
       let filterResult;
-      let filterResultWrapper;
-      if (subCategoryName != "all") {
-        console.log("FILTER SUB CATEGORY");
-        filterResult = await dispatch(listProductBySubCategoryName({ name: subCategoryName, params: { productsPerPage: 4, pageNumber: 1 } }))
+      if (subCategoryName.toLowerCase() != "all") {
+        filterResult = await productService.listProductBySubCategoryName({ main_category: mainCategoryName, category: subCategoryName, productsPerPage: 8, pageNumber: 1 });
       } else {
-        filterResult = await dispatch(listProductByMainCategoryId({ id: mainCategoryId, params: { productsPerPage: 8, pageNumber: 1 } }))
+        filterResult = await productService.listProductByMainCategoryName(mainCategoryName, { productsPerPage: 8, pageNumber: 1 });
       }
-      filterResultWrapper = unwrapResult(filterResult);
-      setIsShowLoading(false);
-      console.log(mainCategoryName);
-      let newListProduct = listAllCategoryWithProductState.filter((item) => {
-        if (item.name == mainCategoryName) {
-          item.listProduct = filterResultWrapper;
+
+      let newListProduct = listAllCategoryWithProductState.map((item) => {
+        let itemTmp = { ...item };
+        if (itemTmp.name == mainCategoryName) {
+          itemTmp.listProduct = filterResult.data;
+          itemTmp.sub_category.currentSelected = subCategoryName;
+          itemTmp.sub_category.hasMoreProducts = filterResult.data.length != 0;
+          itemTmp.sub_category.data = itemTmp.sub_category.data.map(sub_category => {
+            return { ...sub_category, isSelected: subCategoryName == sub_category.name }
+          })
         }
-        return item;
+        return itemTmp;
       })
-      console.log("~~~  ", newListProduct);
       setListAllCategoryWithProductState(newListProduct)
+      setIsShowLoading(false);
     } catch (error) {
       setIsShowLoading(false);
       console.log("An error is occur when filter category");
     }
 
+  }
+
+  const getMoreProduct = async (e) => {
+    try {
+      const subCategoryName = e.target.dataset.selectedcategory;
+      const mainCategoryName = e.target.dataset.maincategoryname;
+      const nextPage = e.target.dataset.nextpage;
+
+      setIsShowLoading(true);
+      let filterResult;
+      if (subCategoryName.toLowerCase() != "all") {
+        filterResult = await productService.listProductBySubCategoryName({ main_category: mainCategoryName, category: subCategoryName, productsPerPage: 8, pageNumber: nextPage });
+      } else {
+        filterResult = await productService.listProductByMainCategoryName(mainCategoryName, { productsPerPage: 8, pageNumber: nextPage });
+      }
+      let newListProduct = listAllCategoryWithProductState.map((item) => {
+        let itemTmp = { ...item };
+        if (itemTmp.name == mainCategoryName) {
+          itemTmp.listProduct = itemTmp.listProduct.concat(filterResult.data);
+          itemTmp.sub_category.hasMoreProducts = filterResult.data.length != 0;
+          ++itemTmp.sub_category.pageNumber;
+          itemTmp.sub_category.currentSelected = subCategoryName;
+
+        }
+        return itemTmp;
+      })
+      setListAllCategoryWithProductState(newListProduct)
+
+      setIsShowLoading(false);
+    } catch (error) {
+      setIsShowLoading(false);
+      console.log("An error is occur when filter category");
+    }
   }
 
   return (
@@ -115,16 +145,16 @@ const Home = (props) => {
                 <Row>
                   <Col lg={3} className="hide-on-992">
                     <ul className="category-product__list">
-                      <li className="category-product__item">
-                        <div data-id="all" data-maincategoryname={categoryWithProduct.name} data-maincategoryid={categoryWithProduct.id} onClick={filterProductBySubCategoryName} className="category-product__link">
-                          All
-                        </div>
-                      </li>
                       {
-                        categoryWithProduct.sub_category.map((subCategory) => {
+                        categoryWithProduct.sub_category.data.map((subCategory) => {
                           return (
-                            <li key={subCategory.id} className="category-product__item">
-                              <div data-id={subCategory.name} data-maincategoryname={categoryWithProduct.name} onClick={filterProductBySubCategoryName} className="category-product__link">
+                            <li key={subCategory.id} className={`category-product__item ${subCategory.isSelected && "active"}`}>
+                              <div
+                                data-id={subCategory.name}
+                                data-maincategoryname={categoryWithProduct.name}
+                                onClick={filterProductBySubCategoryName}
+                                className="category-product__link"
+                              >
                                 {subCategory.name}
                               </div>
                             </li>
@@ -140,6 +170,19 @@ const Home = (props) => {
                     <Row className="category-product__list-box">
                       <ProductCardLists listProduct={categoryWithProduct.listProduct} />
                     </Row>
+                    {
+                      categoryWithProduct.sub_category.hasMoreProducts &&
+                      <Row className="category-product__more">
+                        <button
+                          onClick={getMoreProduct}
+                          data-maincategoryname={categoryWithProduct.name}
+                          data-selectedcategory={categoryWithProduct.sub_category.currentSelected}
+                          data-nextpage={categoryWithProduct.sub_category.pageNumber}
+                          className="category-product__more-btn">
+                          More
+                        </button>
+                      </Row>
+                    }
                   </Col>
                 </Row>
               </div>
@@ -166,7 +209,7 @@ export async function getStaticProps() {
     }
   } catch (e) {
     // handle eror there
-    console.log(e);
+    console.log("ERROR on HOMEPAGE getStaticProps:", e);
   }
 
 

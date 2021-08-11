@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { productService } from "src/data-services/product";
+import { current } from '@reduxjs/toolkit'
 
 export const listProductBySubCategoryName = createAsyncThunk(
     'product/listProductBySubCategoryName',
     async (requestParams) => {
-        // request Params: { name: name, params: { ... }}
-        const response = await productService.listProductBySubCategoryName(requestParams?.name, requestParams?.params)
+        const response = await productService.listProductBySubCategoryName(requestParams)
         return response.data
     }
 )
@@ -28,8 +28,13 @@ const productSlice = createSlice({
     },
     reducers: {
         addProductWithCategory(state, action) {
-            console.log("PAYLOAD:  ", action.payload);
-            state.current = action.payload
+            state.current = action.payload;
+            return state;
+
+        },
+        updateProductWithCategory(state, action){
+            state.current = action.payload;
+            return state;
         }
     },
     extraReducers: {
@@ -43,5 +48,5 @@ const productSlice = createSlice({
 })
 
 const { actions, reducer: productReducer } = productSlice;
-export const { addProductWithCategory } = actions;
+export const { addProductWithCategory, updateProductWithCategory } = actions;
 export default productReducer;

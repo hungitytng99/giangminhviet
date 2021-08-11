@@ -1,4 +1,10 @@
-import { apiListProductByCategoryId, apiListProduct, apiListHotProduct, apiListProductBySubCategoryName } from "src/data-source/product";
+import {
+    apiListProductByCategoryId,
+    apiListProduct, 
+    apiListHotProduct,
+    apiListProductBySubCategoryName,
+    apiListProductByMainCategoryName
+} from "src/data-source/product";
 import { mainCategoryService } from 'src/data-services/category';
 
 // Data Flow: Step 2
@@ -49,8 +55,8 @@ export const productService = {
             return response;
         })
     },
-    listProductBySubCategoryName: function (subCategoryName, requestParams) {
-        return apiListProductBySubCategoryName(subCategoryName, requestParams).then(response => {
+    listProductByMainCategoryName: function (categoryName, requestParams) {
+        return apiListProductByMainCategoryName(categoryName, requestParams).then(response => {
             response.data = response.data.map(item => {
                 return {
                     id: item?.id,
@@ -60,9 +66,24 @@ export const productService = {
                     slug: item?.slug
                 }
             });
-            console.log("PRODUCT SERVICE: ", response);
             return response;
-        }) 
+        })
+    },
+    listProductBySubCategoryName: function (requestParams) {
+        return apiListProductBySubCategoryName(requestParams).then(response => {
+
+            response.data = response.data.map(item => {
+                return {
+                    id: item?.id,
+                    title: item?.title,
+                    main_image: item?.main_image_url,
+                    price: item?.price,
+                    slug: item?.slug
+                }
+            });
+            console.log(requestParams, "++", response);
+            return response;
+        })
     },
     listAllCategoryWithProduct: function (productParams) {
         return mainCategoryService.listMainCategoryAsync().then(async (response) => {
