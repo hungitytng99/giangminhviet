@@ -1,19 +1,20 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { Product } from "src/data-services/product";
+import { productService } from "src/data-services/product";
 
-export const getListProduct = createAsyncThunk(
-    'product/getListProduct',
-    async (requestParams, thunkAPI) => {
-        const response = await Product.listProductAsync(requestParams)
+export const listProductBySubCategoryName = createAsyncThunk(
+    'product/listProductBySubCategoryName',
+    async (requestParams) => {
+        // request Params: { name: name, params: { ... }}
+        const response = await productService.listProductBySubCategoryName(requestParams?.name, requestParams?.params)
         return response.data
     }
 )
 
-export const getListProductByCategoryId = createAsyncThunk(
-    'product/getListProductByCategoryId',
+export const listProductByMainCategoryId = createAsyncThunk(
+    'product/listProductByMainCategoryId',
     async (requestParams) => {
-        const response = await Product.listProductByCategoryId(requestParams)
-        console.log("get list product by category id: ", response);
+        // request Params: { id: id, params: { ... }}
+        const response = await productService.listProductByCategoryId(requestParams?.id, requestParams?.params)
         return response.data
     }
 )
@@ -25,33 +26,22 @@ const productSlice = createSlice({
         loading: false,
         error: ''
     },
-    reducers: {},
+    reducers: {
+        addProductWithCategory(state, action) {
+            console.log("PAYLOAD:  ", action.payload);
+            state.current = action.payload
+        }
+    },
     extraReducers: {
-        [getListProduct.pending]: (state, action) => {
-            state.loading = true;
-        },
-        [getListProduct.rejected]: (state, action) => {
-            state.loading = false;
-            state.error = action.error;
-        },
-        [getListProduct.fulfilled]: (state, action) => {
-            state.loading = false;
+        [listProductBySubCategoryName.fulfilled]: (state, action) => {
             state.current = action.payload
         },
-        [getListProductByCategoryId.pending]: (state, action) => {
-            state.loading = true;
-        },
-        [getListProductByCategoryId.rejected]: (state, action) => {
-            state.loading = false;
-            state.error = action.error;
-        },
-        [getListProductByCategoryId.fulfilled]: (state, action) => {
-            state.loading = false;
+        [listProductByMainCategoryId.fulfilled]: (state, action) => {
             state.current = action.payload
         },
-
     }
 })
 
-const { reducer: productReducer } = productSlice;
+const { actions, reducer: productReducer } = productSlice;
+export const { addProductWithCategory } = actions;
 export default productReducer;

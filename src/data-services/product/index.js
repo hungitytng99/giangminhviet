@@ -1,4 +1,4 @@
-import { apiListProductByCategoryId, apiListProduct, apiListHotProduct } from "src/data-source/product";
+import { apiListProductByCategoryId, apiListProduct, apiListHotProduct, apiListProductBySubCategoryName } from "src/data-source/product";
 import { mainCategoryService } from 'src/data-services/category';
 
 // Data Flow: Step 2
@@ -13,6 +13,7 @@ export const productService = {
                     title: item?.title,
                     main_image: item?.main_image_url,
                     price: item?.price,
+                    slug: item?.slug
                 }
             });
             return response;
@@ -26,9 +27,12 @@ export const productService = {
                     title: item?.title,
                     main_image: item?.main_image_url,
                     price: item?.price,
+                    slug: item?.slug
                 }
             });
+            response.data = filterSplitHotProduct(response.data);
             return response;
+            // return filterSplitHotProduct(response);
         });
     },
     listProductByCategoryId: function (categoryId, requestParams) {
@@ -39,13 +43,28 @@ export const productService = {
                     title: item?.title,
                     main_image: item?.main_image_url,
                     price: item?.price,
+                    slug: item?.slug
                 }
             });
             return response;
         })
     },
+    listProductBySubCategoryName: function (subCategoryName, requestParams) {
+        return apiListProductBySubCategoryName(subCategoryName, requestParams).then(response => {
+            response.data = response.data.map(item => {
+                return {
+                    id: item?.id,
+                    title: item?.title,
+                    main_image: item?.main_image_url,
+                    price: item?.price,
+                    slug: item?.slug
+                }
+            });
+            console.log("PRODUCT SERVICE: ", response);
+            return response;
+        }) 
+    },
     listAllCategoryWithProduct: function (productParams) {
-        console.log("PRODUCT SERVICE 48", productParams);
         return mainCategoryService.listMainCategoryAsync().then(async (response) => {
             let listProductByMainCategory = []
             for (let i = 0; i < response.data.length; i++) {
@@ -58,7 +77,6 @@ export const productService = {
                 }
 
                 const listProduct = await productService.listProductByCategoryId(response.data[i].id, productParams);
-                console.log(listProduct);
                 const listSubCategory = await mainCategoryService.detailMainCategoryAsync(response.data[i].id)
 
                 itemProductByCategory.sub_category = listSubCategory.data.sub_category;
@@ -70,4 +88,26 @@ export const productService = {
             return response;
         })
     }
+}
+
+export const filterSplitHotProduct = (listHotProduct) => {
+    // format hot product ve dang
+    // [
+    //  [ {id: xxx, data: 4 phan tu product }],
+    //  [ {id: xxx, data: 4 phan tu product }],
+    //  ...
+    // ]
+
+    let result = [];
+    let i, j, temporary, chunk = 4;
+    for (i = 0, j = listHotProduct.length; i < j; i += chunk) {
+        let templateResult = {
+            key: i,
+            data: [],
+        }
+        temporary = listHotProduct.slice(i, i + chunk);
+        templateResult.data = temporary;
+        result.push(templateResult)
+    }
+    return result;
 }

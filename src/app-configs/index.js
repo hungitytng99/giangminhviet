@@ -5,7 +5,7 @@ export const Configs = {
     CURRENT_PAGE: 1,
     FILE_MAXIMUM: 2, //MB
     PAGE_SIZE_20: 20,
-    DEFAULT_TOKEN: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiU3lzQWRtaW4iLCJpZHAiOiJTRUxGIiwidWlkIjoiMzMzZTBjNzAtMDZlNy00MmE5LTg4NjgtY2Y3NzRlMzgwMTQwIiwibmJmIjoxNjI4MTY4MDY5LCJleHAiOjE2MzY4MDgwNjksImlhdCI6MTYyODE2ODA2OSwiaXNzIjoiYXBpLjNsb2Nrcy5ub2Jpc29mdC5jb20udm4iLCJhdWQiOiIzbG9ja3Mubm9iaXNvZnQuY29tLnZuIn0.EPuJrULohbWXs2zANMnHq1_KTMVQgie7e23f-nOgsgs"
+    PAGE_SIZE_4: 4,
 };
 
 export const REQUEST_STATE = {
