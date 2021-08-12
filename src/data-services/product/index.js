@@ -27,6 +27,7 @@ export const productService = {
                 material: response.data?.material,
                 main_category: mainCategory?.data.name,
                 sub_category: subCategory?.data.name,
+                slug: response.data?.slug
             }
             return response;
         });

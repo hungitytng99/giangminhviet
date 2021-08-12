@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NextPage } from "next";
-
 import * as Yup from 'yup';
 import { Form, Formik } from 'formik';
 import InputField from 'src/ui-source/Form/InputField';
+import { inquiryService } from 'src/data-services/inquiry'
+import FullPageLoading from 'src/ui-source/Loading/FullPageLoading';
 
 const phoneReg = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/g
 const contactSchema = Yup.object().shape({
@@ -15,24 +16,51 @@ const contactSchema = Yup.object().shape({
     email: Yup.string().email('Please enter a valid email').required('This field is required'),
 });
 interface Props {
+    productId?: number,
+    productSlug?: string,
     productName?: string,
     closeContact?: any
 }
 const ContactForm: NextPage<Props> = (props) => {
-    const { productName, closeContact = () => { } } = props;
+    const { productSlug, productId, productName, closeContact = () => { } } = props;
+    const [isShowLoading, setIsShowLoading] = useState(false);
+    const [ messageAfterValidate, setMessageAfterValidate ] = useState('');
+
+    const sendContact = async (values: any) => {
+        try {
+            setIsShowLoading(true);
+            const inquiryBody = {
+                customer_name: values.name,
+                email: values.email,
+                phone: values.phone,
+                message: values.message,
+                product_id: productId,
+                quantity: 0,
+                product_link: 'https://giangminhviet.com/product/' + productSlug,
+                product_name: productName
+            }
+            const response = await inquiryService.sendCustomerInquiry(inquiryBody);
+            console.log(response);            
+            setMessageAfterValidate('Thank for your information. We will contact you as soon as possible!');
+            setIsShowLoading(false);
+        } catch (error) {
+            setIsShowLoading(false);
+            setMessageAfterValidate('An error occurs when you send your information. Please try again later!');
+            console.log("SEND INQUIRY ERROR - CONTACT FORM: ", error);
+        }
+    }
     return (
         <div className="contact-form">
+            {isShowLoading && <FullPageLoading opacity={0.5} />}
             <Formik
                 initialValues={{
                     name: '',
                     phone: '',
                     email: '',
+                    // message: '',
                 }}
                 validationSchema={contactSchema}
-                onSubmit={values => {
-                    // same shape as initial values
-                    console.log(values);
-                }}
+                onSubmit={sendContact}
             >
                 {({ errors, touched }) => (
                     <Form>
@@ -49,7 +77,6 @@ const ContactForm: NextPage<Props> = (props) => {
                                 disabled={true}
                             />
                         }
-
 
                         <InputField
                             errors={errors}
@@ -87,7 +114,8 @@ const ContactForm: NextPage<Props> = (props) => {
                             rows={3}
                         />
                         <div className="contact-form__btn-group">
-                            <button onClick={closeContact} className="contact-form__btn cancel">Cancel</button>
+                            <div className="contact-form__message-submit">{messageAfterValidate}</div>
+                            <button type="button" onClick={closeContact} className="contact-form__btn cancel">Cancel</button>
                             <button className="contact-form__btn send" type="submit">Send</button>
                         </div>
                     </Form>

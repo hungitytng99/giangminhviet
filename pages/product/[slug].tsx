@@ -24,9 +24,6 @@ interface Props {
 
 const Product: NextPage<Props> = (props: any) => {
   const { mainCategoryAndSubCategory, detailProduct, relatedProducts } = props;
-  // console.log(">. DATA", detailProduct);
-  console.log(":: ", relatedProducts);
-
 
   return (
     <>
@@ -48,7 +45,7 @@ const Product: NextPage<Props> = (props: any) => {
           </Col>
           <Col xs={12} md={6}>
             <div className="product__detail-id">
-              {detailProduct.material}
+              {detailProduct.model}
             </div>
             <div className="product__detail-name">
               {detailProduct.title}
@@ -94,7 +91,10 @@ const Product: NextPage<Props> = (props: any) => {
 
         <Row className="product__contact-form">
           <div className="product__contact-form-header">Please leave your contact information</div>
-          <ContactForm />
+          <ContactForm
+            productSlug={detailProduct.slug}
+            productId={detailProduct.id}
+            productName={detailProduct.title} />
         </Row>
 
       </Container>
@@ -120,9 +120,6 @@ export async function getServerSideProps(context: any) {
       mainCategoryAndSubCategory: mainCategoryWithSub.data,
       detailProduct: detailProduct.data,
       relatedProducts: relatedProducts.data,
-      // category_questions,
-      // supportQuestions,
-      // types,
     },
   };
 }

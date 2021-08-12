@@ -13,7 +13,8 @@ export interface product {
     material: string,
     sub_category: string,
     main_category:  string,
-    slug: string
+    slug: string,
+    model: string,
 }
 
 export interface category {
