@@ -101,7 +101,8 @@ const CardProduct: NextPage<Props> = (props) => {
             <Modal
                 isOpen={contactModal}
                 onRequestClose={hideContactModal}
-                style={customStyles}
+                className="Modal"
+                overlayClassName="Overlay"
             >
                 <div className="contact-form__header">
                     <img className="contact-form__header-img" src={ImagesPath.LOGO_VUONG.src} alt="logo giang minh viet vuong" />

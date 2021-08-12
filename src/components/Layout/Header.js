@@ -13,7 +13,7 @@ const customStyles = {
     content: {
         top: '0',
         left: '0',
-        right: '50%',
+        right: '30%',
         bottom: '0',
         zIndex: 998,
         backgroundColor: '#fff',

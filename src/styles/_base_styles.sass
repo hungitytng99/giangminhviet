@@ -120,6 +120,38 @@ p.carousel-status
         padding-top: 100%
 .z-index-2
     z-index: 2
+// For react modal
+.Modal
+    background-color: $white
+    padding: 20px
+    border: 1px solid #eaeaea
+    animation: appear linear 0.3s
+    width: 300px
+.Overlay
+    position: fixed
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    z-index: 999
+    display: flex
+    justify-content: center
+    align-items: center
+    animation: appear linear 0.3s
+    background-color: rgba(0, 0, 0, 0.3)
+@media (min-width: 440px)
+    .Modal
+        width: 400px
+@media (min-width: 576px)
+    .Modal
+        width: 540px
+@media (min-width: 768px)
+    .Modal
+        width: 700px
+@media (min-width: 992px)
+    .Modal
+        width: 850px
+
 @media (min-width: 1200px)
 .container
     max-width: 1140px

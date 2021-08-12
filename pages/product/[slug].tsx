@@ -11,7 +11,8 @@ import { product } from 'src/interface';
 import { mainCategoryService } from 'src/data-services/category';
 import { productService } from 'src/data-services/product';
 import ContactForm from 'src/components/ContactForm';
-
+import { useState } from 'react';
+import Modal from 'react-modal';
 
 interface Props {
   mainCategory?: string,
@@ -21,10 +22,24 @@ interface Props {
   mainCategoryAndSubCategory?: Array<any>
   detailProduct?: Object,
 }
-
+Modal.setAppElement('#__next');
 const Product: NextPage<Props> = (props: any) => {
   const { mainCategoryAndSubCategory, detailProduct, relatedProducts } = props;
+  const [contactModal, setContactModal] = useState(false);
 
+  const showContactModal = (e: any) => {
+    e.stopPropagation();
+    setContactModal(true);
+  }
+
+  const hideContactModal = () => {
+    setContactModal(false);
+  }
+
+  const closeContactForm = (e: any) => {
+    e.preventDefault();
+    setContactModal(false);
+  }
   return (
     <>
       <Header listCategory={mainCategoryAndSubCategory} />
@@ -56,7 +71,7 @@ const Product: NextPage<Props> = (props: any) => {
             </div>
 
             <div className="product__detail-contact">
-              <div className="product__detail-contact-link">
+              <div onClick={showContactModal} className="product__detail-contact-link">
                 Contact
               </div>
             </div>
@@ -98,6 +113,26 @@ const Product: NextPage<Props> = (props: any) => {
         </Row>
 
       </Container>
+      <Modal
+        isOpen={contactModal}
+        onRequestClose={hideContactModal}
+        className="Modal"
+        overlayClassName="Overlay"
+      >
+        <div className="contact-form__header">
+          <img className="contact-form__header-img" src={ImagesPath.LOGO_VUONG.src} alt="logo giang minh viet vuong" />
+          <div className="contact-form__header-text">
+            Send your message to us
+            <span>We'll contact you as soon as possible</span>
+          </div>
+          <div onClick={hideContactModal} className="contact-form__header-close">
+            <FontAwesomeIcon icon={["fas", "times"]} />
+          </div>
+        </div>
+        <div className="contact-form__form">
+          <ContactForm closeContact={closeContactForm} productName={detailProduct.title} />
+        </div>
+      </Modal>
     </>
   )
 }

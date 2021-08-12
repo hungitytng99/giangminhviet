@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NextPage } from "next";
 import * as Yup from 'yup';
 import { Form, Formik } from 'formik';
@@ -15,18 +15,13 @@ const contactSchema = Yup.object().shape({
         .required('This field is required'),
     email: Yup.string().email('Please enter a valid email').required('This field is required'),
 });
-interface Props {
-    productId?: number,
-    productSlug?: string,
-    productName?: string,
-    closeContact?: any
-}
-const ContactForm: NextPage<Props> = (props) => {
+
+const ContactForm = (props) => {
     const { productSlug, productId, productName, closeContact = () => { } } = props;
     const [isShowLoading, setIsShowLoading] = useState(false);
-    const [ messageAfterValidate, setMessageAfterValidate ] = useState('');
+    const [messageAfterValidate, setMessageAfterValidate] = useState('');
 
-    const sendContact = async (values: any) => {
+    const sendContact = async (values) => {
         try {
             setIsShowLoading(true);
             const inquiryBody = {
@@ -40,8 +35,8 @@ const ContactForm: NextPage<Props> = (props) => {
                 product_name: productName
             }
             const response = await inquiryService.sendCustomerInquiry(inquiryBody);
-            console.log(response);            
-            setMessageAfterValidate('Thank for your information. We will contact you as soon as possible!');
+            console.log(response);
+            setMessageAfterValidate(response.message);
             setIsShowLoading(false);
         } catch (error) {
             setIsShowLoading(false);
@@ -49,6 +44,13 @@ const ContactForm: NextPage<Props> = (props) => {
             console.log("SEND INQUIRY ERROR - CONTACT FORM: ", error);
         }
     }
+
+    useEffect(() => {
+        return () => {
+            // clean
+        }
+    },[])
+
     return (
         <div className="contact-form">
             {isShowLoading && <FullPageLoading opacity={0.5} />}
