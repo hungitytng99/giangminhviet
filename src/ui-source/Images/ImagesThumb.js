@@ -3,7 +3,7 @@ import { NextPage } from "next";
 import ReactImageMagnify from 'react-image-magnify';
 import { Col, Row } from 'react-bootstrap';
 
-
+// [{ src: ImagesPath.PRODUCT.src, alt: "" }, { src: ImagesPath.PRODUCT_2.src, alt: "" }, { src: ImagesPath.SP.src, alt: "" }]
 const ImagesThumb = ({ listImages }) => {
     let count = -1;
     listImages = listImages.map((item, index) => {
@@ -48,7 +48,7 @@ const ImagesThumb = ({ listImages }) => {
                                 enlargedImageContainerClassName="hide-on-768"
                                 {...{
                                     smallImage: {
-                                        alt: 'Wristwatch by Ted Baker London',
+                                        alt: currentImageSelected?.alt,
                                         isFluidWidth: true,
                                         src: currentImageSelected?.src
                                     },

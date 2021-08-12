@@ -11,13 +11,11 @@ import { mainCategoryService } from 'src/data-services/category';
 import { productService } from 'src/data-services/product';
 import { useState } from 'react';
 import FullPageLoading from 'src/ui-source/Loading/FullPageLoading'
-import { listProductBySubCategoryName, listProductByMainCategoryId } from 'src/data-stores/slices/productSlice'
-import { unwrapResult } from '@reduxjs/toolkit';
-import { useDispatch } from "react-redux";
 const Home = (props) => {
   const { listMainCategory, listAllCategoryWithProduct, listHotProducts } = props;
   const [listAllCategoryWithProductState, setListAllCategoryWithProductState] = useState(listAllCategoryWithProduct);
   const [isShowLoading, setIsShowLoading] = useState(false);
+
   console.log(listAllCategoryWithProduct);
 
   const filterProductBySubCategoryName = async (e) => {
@@ -211,7 +209,5 @@ export async function getStaticProps() {
     // handle eror there
     console.log("ERROR on HOMEPAGE getStaticProps:", e);
   }
-
-
 }
 export default Home

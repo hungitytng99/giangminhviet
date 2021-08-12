@@ -7,6 +7,7 @@ interface Props {
     listProduct: Array<product>,
 }
 const ProductCardLists: NextPage<Props> = ({ listProduct = [] }) => {
+    console.log("{{ ", listProduct);
     
     return (
         <Row>

@@ -19,6 +19,39 @@ import { REQUEST_STATE } from "src/app-configs/index.js";
 //     }
 // };
 
+export const apiDetailProductBySlug = async (productSlug) => {
+    try {
+        const response = await GET("/product/get-by-slug/" + productSlug);
+        return {
+            state: REQUEST_STATE.SUCCESS,
+            data: response.data
+        };
+
+    } catch (error) {
+        console.log("error", error);
+        return {
+            state: REQUEST_STATE.ERROR,
+            data: []
+        };
+    }
+};
+
+export const apiDetailProductById = async (productId) => {
+    try {
+        const response = await GET("/product/" + productId);
+        return {
+            state: REQUEST_STATE.SUCCESS,
+            data: response.data
+        };
+
+    } catch (error) {
+        console.log("error", error);
+        return {
+            state: REQUEST_STATE.ERROR,
+            data: []
+        };
+    }
+};
 
 export const apiListProduct = async (params) => {
     try {

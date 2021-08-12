@@ -29,7 +29,7 @@ const InputField: NextPage<Props> = (props) => {
                         {isRequired ? <span className="input-field__required">*</span> : ''}
                     </div>
                     <Field
-                        className={`input-field__input ${hasError && "error"} ${disabled && "disabled"}`}
+                        className={`input-field__input text_over_flow_1 ${hasError && "error"} ${disabled && "disabled"}`}
                         placeholder={placeholder}
                         name={name}
                         autoComplete="off"

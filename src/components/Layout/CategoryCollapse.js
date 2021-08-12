@@ -6,7 +6,7 @@ import { Collapse } from 'react-bootstrap';
 import { category } from 'src/interface';
 
 
-const CategoryCollapse =  ({ categoryNavItem, listCategory }) => {
+const CategoryCollapse = ({ categoryNavItem, listCategory }) => {
     const [open, setOpen] = useState(false);
     return (
         <div className="category-collapse">
@@ -31,11 +31,12 @@ const CategoryCollapse =  ({ categoryNavItem, listCategory }) => {
                                     {
                                         itemCategory.sub_category.data.map((sub_category_item) => {
                                             return (
-                                                <li key={sub_category_item.id} className="category-collapse__item-child">
-                                                    <a href={sub_category_item.href} className="category-collapse__item-child-link">
-                                                        {sub_category_item.name}
-                                                    </a>
-                                                </li>
+                                                sub_category_item.name.toLowerCase() != "all" ?
+                                                    <li key={sub_category_item.id} className="category-collapse__item-child">
+                                                        <a href={sub_category_item.href} className="category-collapse__item-child-link">
+                                                            {sub_category_item.name}
+                                                        </a>
+                                                    </li> : ""
                                             )
                                         })
                                     }

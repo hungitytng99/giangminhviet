@@ -35,3 +35,19 @@ export const apiDetailMainCategory = async (categoryId) => {
         };
     }
 };
+
+export const apiDetailSubCategory = async (categoryId) => {
+    try {
+        const response = await GET("/category/" + categoryId);
+        return {
+            state: REQUEST_STATE.SUCCESS,
+            data: response.data
+        };
+    } catch (error) {
+        console.log("error", error);
+        return {
+            state: REQUEST_STATE.ERROR,
+            data: []
+        };
+    }
+};

@@ -1,15 +1,50 @@
 import {
     apiListProductByCategoryId,
-    apiListProduct, 
+    apiListProduct,
     apiListHotProduct,
     apiListProductBySubCategoryName,
-    apiListProductByMainCategoryName
+    apiListProductByMainCategoryName,
+    apiDetailProductById,
+    apiDetailProductBySlug
 } from "src/data-source/product";
 import { mainCategoryService } from 'src/data-services/category';
 
 // Data Flow: Step 2
 // transform data to fit with UI;
 export const productService = {
+    detailProductBySlugAsync: function (productSlug) {
+        return apiDetailProductBySlug(productSlug).then(async (response) => {
+            const mainCategory = await mainCategoryService.detailMainCategoryAsync(response.data.main_category_id);
+            const subCategory = await mainCategoryService.detailSubCategoryAsync(response.data.category_id);
+            const listImages = [response.data?.main_image_url, ...response.data?.list_product_images];
+            response.data = {
+                id: response.data?.id,
+                title: response.data?.title,
+                model: response.data?.model_number,
+                description: response.data?.description,
+                image: filterImageField(listImages, response.data?.title),
+                price: response.data?.price,
+                material: response.data?.material,
+                main_category: mainCategory?.data.name,
+                sub_category: subCategory?.data.name,
+            }
+            return response;
+        });
+    },
+    detailProductByIdAsync: function (productId) {
+        return apiDetailProductById(productId).then(response => {
+            response.data = response.data.map(item => {
+                return {
+                    id: item?.id,
+                    title: item?.title,
+                    main_image: item?.main_image_url,
+                    price: item?.price,
+                    slug: "product/" + item?.slug
+                }
+            });
+            return response;
+        });
+    },
 
     listProductAsync: function (requestParams) {
         return apiListProduct(requestParams).then(response => {
@@ -19,7 +54,7 @@ export const productService = {
                     title: item?.title,
                     main_image: item?.main_image_url,
                     price: item?.price,
-                    slug: item?.slug
+                    slug: "product/" + item?.slug
                 }
             });
             return response;
@@ -33,7 +68,7 @@ export const productService = {
                     title: item?.title,
                     main_image: item?.main_image_url,
                     price: item?.price,
-                    slug: item?.slug
+                    slug: "product/" + item?.slug
                 }
             });
             response.data = filterSplitHotProduct(response.data);
@@ -49,7 +84,7 @@ export const productService = {
                     title: item?.title,
                     main_image: item?.main_image_url,
                     price: item?.price,
-                    slug: item?.slug
+                    slug: "product/" + item?.slug
                 }
             });
             return response;
@@ -63,7 +98,7 @@ export const productService = {
                     title: item?.title,
                     main_image: item?.main_image_url,
                     price: item?.price,
-                    slug: item?.slug
+                    slug: "product/" + item?.slug
                 }
             });
             return response;
@@ -78,7 +113,7 @@ export const productService = {
                     title: item?.title,
                     main_image: item?.main_image_url,
                     price: item?.price,
-                    slug: item?.slug
+                    slug: "product/" + item?.slug
                 }
             });
             console.log(requestParams, "++", response);
@@ -131,4 +166,17 @@ export const filterSplitHotProduct = (listHotProduct) => {
         result.push(templateResult)
     }
     return result;
+}
+
+export const filterImageField = (listImage, alt) => {
+    // [ imgSrc1 , imgSrc2, ... ]
+    // => 
+    // [ { src: imgSrc1, alt: imgAlt1} , { src: imgSrc2, alt: imgAlt2}, ... ]
+
+    return listImage.map((image) => {
+        return {
+            src: image,
+            alt: alt + "_" + String(Math.floor(Math.random() * 1000)),
+        }
+    })
 }

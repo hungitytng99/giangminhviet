@@ -8,53 +8,60 @@ import ProductCardLists from 'src/components/ProductCardLists';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { NextPage } from 'next';
 import { product } from 'src/interface';
+import { mainCategoryService } from 'src/data-services/category';
+import { productService } from 'src/data-services/product';
+import ContactForm from 'src/components/ContactForm';
+
 
 interface Props {
   mainCategory?: string,
   subCategory?: string,
   product?: product,
   relatedProducts?: Array<product>,
+  mainCategoryAndSubCategory?: Array<any>
+  detailProduct?: Object,
 }
 
 const Product: NextPage<Props> = (props: any) => {
-  const img = { width: 400, height: 250, zoomWidth: 500, img: ImagesPath.PRODUCT.src };
-  const imgList = [{ src: ImagesPath.PRODUCT.src, alt: "" }, { src: ImagesPath.PRODUCT_2.src, alt: "" }, { src: ImagesPath.SP.src, alt: "" }]
-  
-  
+  const { mainCategoryAndSubCategory, detailProduct, relatedProducts } = props;
+  // console.log(">. DATA", detailProduct);
+  console.log(":: ", relatedProducts);
+
+
   return (
     <>
-      <Header />
+      <Header listCategory={mainCategoryAndSubCategory} />
       <ContactPop />
       <Container className="product">
         <Row>
           <Breadcrumb className="product__breadcrumb">
             <Breadcrumb.Item href="/">Trang chủ</Breadcrumb.Item>
             <Breadcrumb.Item href="/phong-bep">
-              Phòng bếp
+              {detailProduct.main_category}
             </Breadcrumb.Item>
-            <Breadcrumb.Item active>Bộ bàn ăn ABCXYZ</Breadcrumb.Item>
+            <Breadcrumb.Item active>{detailProduct.sub_category}</Breadcrumb.Item>
           </Breadcrumb>
         </Row>
         <Row className="product__detail">
           <Col xs={12} md={6}>
-            <ImagesThumb listImages={imgList} />
+            <ImagesThumb listImages={detailProduct.image} />
           </Col>
           <Col xs={12} md={6}>
             <div className="product__detail-id">
-              QWERTY
+              {detailProduct.material}
             </div>
             <div className="product__detail-name">
-              Leather Pouf Cover, Moroccan pouf, Berber pouf, ottoman pouf, Moroccan ottoman leather pouf
+              {detailProduct.title}
             </div>
             <div className="product__detail-price">
-              14,000,000
+              {detailProduct.price}
               <span>₫</span>
             </div>
 
             <div className="product__detail-contact">
-              <a href="/" className="product__detail-contact-link">
+              <div className="product__detail-contact-link">
                 Contact
-              </a>
+              </div>
             </div>
             <div className="product__detail-highlight">
               Highlights
@@ -67,12 +74,12 @@ const Product: NextPage<Props> = (props: any) => {
               <span className="product__detail-material-icon">
                 <FontAwesomeIcon icon={["fas", "poll-h"]} />
               </span>
-              <span>Material: </span> material 1, material 2, material 3
+              <span>Material: </span> {detailProduct.material}
             </div>
             <div className="product__detail-info-detail">
               <FontAwesomeIcon className="product__detail-detail-icon" icon={["fas", "info-circle"]} />
               <span>Detail: </span>
-              Bộ bàn ăn NIKKO được làm từ gỗ óc chó cao cấp. Với thiết kế thanh nhã, giữ được nguyên vẹn những vân gỗ tự nhiên vốn có. Bộ bàn ăn này chắc chắn sẽ giúp căn bếp của bạn thêm sang trọng hơn bao giờ hết. Tất cả các góc cạnh bàn và cạnh ghế đều được bo tròn đảm bảo an toàn cho người sử dụng. Điểm độc đáo của mẫu bàn này là chân bàn được thiết kế giống như chân kiềng 3 chân chắc chắn. Ghế ăn thì khá đơn giản với phần tựa lưng theo kiểu nan ngang, nệm bọc vải cao cấp.
+              {detailProduct.description}
             </div>
           </Col>
         </Row>
@@ -82,11 +89,42 @@ const Product: NextPage<Props> = (props: any) => {
               <a href="/" className="special-product__link">Sản phẩm cùng loại</a>
             </h2>
           </div>
-          <ProductCardLists />
+          <ProductCardLists listProduct={relatedProducts} />
+        </Row>
+
+        <Row className="product__contact-form">
+          <div className="product__contact-form-header">Please leave your contact information</div>
+          <ContactForm />
         </Row>
 
       </Container>
     </>
   )
 }
+
+export async function getServerSideProps(context: any) {
+  const { slug } = context.params;
+  const mainCategoryWithSub = await mainCategoryService.listCategoryWithSubCategory();
+  const detailProduct = await productService.detailProductBySlugAsync(slug);
+  const relatedProducts = await productService.listProductBySubCategoryName(
+    { main_category: detailProduct.data.main_category, category: detailProduct.data.sub_category, productsPerPage: 4, pageNumber: 1 }
+  );
+
+  // const detailProduct = 
+  // let [supportQuestions, types] = await Promise.all([
+  //   fetchSupportQuestions(),
+  //   fetchTypes(),
+  // ]);
+  return {
+    props: {
+      mainCategoryAndSubCategory: mainCategoryWithSub.data,
+      detailProduct: detailProduct.data,
+      relatedProducts: relatedProducts.data,
+      // category_questions,
+      // supportQuestions,
+      // types,
+    },
+  };
+}
+
 export default Product

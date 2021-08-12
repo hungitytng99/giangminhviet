@@ -75,17 +75,18 @@ const Header = ({ listCategory = [] }) => {
                                             return (
                                                 <Col key={category.id} >
                                                     <div className="product__dropdown-category">
-                                                        <a href={category.name} className="product__dropdown-category-title">
+                                                        <a href={`/${category.name}`} className="product__dropdown-category-title">
                                                             {category.name}
                                                         </a>
                                                         <ul className="product__dropdown-category-list">
                                                             {category.sub_category.data.map((item) => {
                                                                 return (
-                                                                    <li key={item.id} className="product__dropdown-category-item">
-                                                                        <a href={item.href}>
-                                                                            {item.name}
-                                                                        </a>
-                                                                    </li>
+                                                                    item.name.toLowerCase() != "all" ?
+                                                                        <li key={item.id} className="product__dropdown-category-item">
+                                                                            <a href={`/${item.href}`}>
+                                                                                {item.name}
+                                                                            </a>
+                                                                        </li> : ""
                                                                 )
                                                             })}
                                                         </ul>
