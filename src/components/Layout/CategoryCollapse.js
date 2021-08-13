@@ -24,7 +24,7 @@ const CategoryCollapse = ({ categoryNavItem, listCategory }) => {
                     {listCategory.map((itemCategory) => {
                         return (
                             <li key={itemCategory.id} className="category-collapse__item">
-                                <a href={itemCategory.href} className="category-collapse__item-link">
+                                <a href={`/category/${itemCategory.id}`} className="category-collapse__item-link">
                                     {itemCategory.name}
                                 </a>
                                 <ul className="category-collapse__item-content">
@@ -33,7 +33,7 @@ const CategoryCollapse = ({ categoryNavItem, listCategory }) => {
                                             return (
                                                 sub_category_item.name.toLowerCase() != "all" ?
                                                     <li key={sub_category_item.id} className="category-collapse__item-child">
-                                                        <a href={sub_category_item.href} className="category-collapse__item-child-link">
+                                                        <a href={`/${sub_category_item.href}`} className="category-collapse__item-child-link">
                                                             {sub_category_item.name}
                                                         </a>
                                                     </li> : ""

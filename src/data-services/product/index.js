@@ -5,7 +5,10 @@ import {
     apiListProductBySubCategoryName,
     apiListProductByMainCategoryName,
     apiDetailProductById,
-    apiDetailProductBySlug
+    apiDetailProductBySlug,
+    apiListMaterial,
+    apiListProductByCategoryAndMaterial,
+
 } from "src/data-source/product";
 import { mainCategoryService } from 'src/data-services/category';
 
@@ -32,6 +35,7 @@ export const productService = {
             return response;
         });
     },
+
     detailProductByIdAsync: function (productId) {
         return apiDetailProductById(productId).then(response => {
             response.data = response.data.map(item => {
@@ -61,6 +65,7 @@ export const productService = {
             return response;
         });
     },
+
     listHotProductAsync: function (requestParams) {
         return apiListHotProduct(requestParams).then(response => {
             response.data = response.data.map(item => {
@@ -77,6 +82,20 @@ export const productService = {
             // return filterSplitHotProduct(response);
         });
     },
+
+    listAllMaterial: function (requestParams) {
+        return apiListMaterial(requestParams).then(response => {
+            response.data = response.data.map((material) => {
+                return {
+                    value: material.material,
+                    label: material.material,
+                }
+            })
+            return response.data;
+            // return filterSplitHotProduct(response);
+        });
+    },
+
     listProductByCategoryId: function (categoryId, requestParams) {
         return apiListProductByCategoryId(categoryId, requestParams).then(response => {
             response.data = response.data.map(item => {
@@ -107,7 +126,6 @@ export const productService = {
     },
     listProductBySubCategoryName: function (requestParams) {
         return apiListProductBySubCategoryName(requestParams).then(response => {
-
             response.data = response.data.map(item => {
                 return {
                     id: item?.id,
@@ -117,7 +135,6 @@ export const productService = {
                     slug: "product/" + item?.slug
                 }
             });
-            console.log(requestParams, "++", response);
             return response;
         })
     },
@@ -129,6 +146,7 @@ export const productService = {
                 let itemProductByCategory = {
                     id: response.data[i].id,
                     name: response.data[i].name,
+                    href: "/category/" + response.data[i].id,
                     sub_category: [],
                     listProduct: []
                 }
@@ -144,6 +162,20 @@ export const productService = {
             response.data = listProductByMainCategory;
             return response;
         })
+    },
+    listProductWithCategoryMaterial: function (requestParams) {
+        return apiListProductByCategoryAndMaterial(requestParams).then(response => {
+            response.data = response.data.map(item => {
+                return {
+                    id: item?.id,
+                    title: item?.title,
+                    main_image: item?.main_image_url,
+                    price: item?.price,
+                    slug: "product/" + item?.slug
+                }
+            });
+            return response;
+        });
     }
 }
 

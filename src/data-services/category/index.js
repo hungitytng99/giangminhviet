@@ -1,21 +1,37 @@
 // import { apiGetListProductByCategoryId, apiListProduct } from "src/data-source/product";
 import { apiDetailMainCategory, apiDetailSubCategory, apiListMainCategory } from "src/data-source/category";
+import { apiListProductByCategoryAndMaterial } from "src/data-source/product";
 
 // Data Flow: Step 2
 // transform data to fit with UI;
 export const mainCategoryService = {
 
-    detailSubCategoryAsync: function (categoryId) {
-        return apiDetailSubCategory(categoryId).then(response => {
+    detailSubCategoryAsync: function (subCategoryId) {
+        return apiDetailSubCategory(subCategoryId).then(response => {
             response.data = {
                 id: response.data?.id,
                 name: response.data?.name,
-                href: response.data?.name,
+                href: "/category/" + String(response.data?.main_category_id) + String(response.data?.id),
             }
             return response;
         });
     },
 
+    detailMainCategoryByIdAsync: function (categoryId) {
+        return apiDetailMainCategory(categoryId).then(response => {
+            response.data = {
+                id: response.data?.id,
+                name: response.data?.name,
+                image: response.data?.url_image,
+                description: response.data?.description,
+                href: "/category/" + response.data?.id,
+                sub_category: response.data?.sub_category
+            }
+            return response;
+        });
+    },
+
+    // detail with filter, use for component
     detailMainCategoryAsync: function (categoryId) {
         return apiDetailMainCategory(categoryId).then(response => {
             response.data = {
@@ -23,8 +39,8 @@ export const mainCategoryService = {
                 name: response.data?.name,
                 image: response.data?.url_image,
                 description: response.data?.description,
-                href: response.data?.name,
-                sub_category: filterSubCategory(response.data?.sub_category, response.data?.name)
+                href: "/category/" + response.data?.id,
+                sub_category: filterSubCategory(response.data?.sub_category, response.data?.id)
             }
             return response;
         });
@@ -37,7 +53,7 @@ export const mainCategoryService = {
                     id: item?.id,
                     name: item?.name,
                     image: item?.url_image,
-                    href: "/"
+                    href: "/category/" + item?.id
                 }
             });
             return response;
@@ -60,15 +76,16 @@ export const mainCategoryService = {
             response.data = listCategoryWithSub;
             return response;
         })
-    }
+    },
+
 }
 
-export const filterSubCategory = (listSubCategory, nameMainCategory) => {
+export const filterSubCategory = (listSubCategory, idMainCategory) => {
     listSubCategory = listSubCategory.map((subCategory) => {
         return {
             id: subCategory.id,
             name: subCategory.name,
-            href: nameMainCategory + "/" + subCategory.name,
+            href: "category/" + idMainCategory + "/" + subCategory.id,
             isSelected: false,
         }
     })

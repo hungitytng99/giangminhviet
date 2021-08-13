@@ -47,7 +47,7 @@ const Product: NextPage<Props> = (props: any) => {
       <Container className="product">
         <Row>
           <Breadcrumb className="product__breadcrumb">
-            <Breadcrumb.Item href="/">Trang chủ</Breadcrumb.Item>
+            <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
             <Breadcrumb.Item href="/phong-bep">
               {detailProduct.main_category}
             </Breadcrumb.Item>
@@ -144,12 +144,6 @@ export async function getServerSideProps(context: any) {
   const relatedProducts = await productService.listProductBySubCategoryName(
     { main_category: detailProduct.data.main_category, category: detailProduct.data.sub_category, productsPerPage: 4, pageNumber: 1 }
   );
-
-  // const detailProduct = 
-  // let [supportQuestions, types] = await Promise.all([
-  //   fetchSupportQuestions(),
-  //   fetchTypes(),
-  // ]);
   return {
     props: {
       mainCategoryAndSubCategory: mainCategoryWithSub.data,

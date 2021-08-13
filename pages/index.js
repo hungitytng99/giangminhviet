@@ -11,12 +11,16 @@ import { mainCategoryService } from 'src/data-services/category';
 import { productService } from 'src/data-services/product';
 import { useState } from 'react';
 import FullPageLoading from 'src/ui-source/Loading/FullPageLoading'
+import { useAmp } from 'next/amp'
+
+export const config = { amp: 'hybrid' }
+
 const Home = (props) => {
   const { listMainCategory, listAllCategoryWithProduct, listHotProducts } = props;
   const [listAllCategoryWithProductState, setListAllCategoryWithProductState] = useState(listAllCategoryWithProduct);
   const [isShowLoading, setIsShowLoading] = useState(false);
-
   console.log(listAllCategoryWithProduct);
+  const isAmp = useAmp();
 
   const filterProductBySubCategoryName = async (e) => {
     try {
@@ -87,107 +91,110 @@ const Home = (props) => {
 
   return (
     <>
-      {isShowLoading && <FullPageLoading opacity={0.5} />}
-      <Contact />
-      <Carousel
-        autoPlay={true}
-        showThumbs={false}
-        interval={6000}
-        showArrows={false}
-        infiniteLoop={true}
-      >
-        <div>
-          <img src={ImagesPath.IMG_BANNER_1.src} />
-        </div>
-        <div>
-          <img src={ImagesPath.IMG_BANNER_2.src} />
-        </div>
-      </Carousel>
-      <Header listCategory={listAllCategoryWithProductState} />
-      <Container>
-        <CategoryBoxLists listMainCategory={listMainCategory} />
-        <div className="special-product">
-          <h2 className="special-product__text">
-            <a href="/" className="special-product__link">Sản phẩm nổi bật</a>
-          </h2>
-        </div>
+      <div className="home-page">
+        {isShowLoading && <FullPageLoading opacity={0.5} />}
+        <Contact />
         <Carousel
           autoPlay={true}
           showThumbs={false}
-          showIndicators={false}
+          interval={6000}
           showArrows={false}
           infiniteLoop={true}
-          interval={6000}
-          transitionTime={800}
         >
-          {
-            listHotProducts.map((hotProduct) => {
-              return (
-                <div key={hotProduct.id}>
-                  <ProductCardLists listProduct={hotProduct.data} />
-                </div>
-              )
-            })
-          }
+          <div>
+            <img src={ImagesPath.IMG_BANNER_1.src} />
+          </div>
+          <div>
+            <img src={ImagesPath.IMG_BANNER_2.src} />
+          </div>
         </Carousel>
+        <Header listCategory={listAllCategoryWithProductState} />
+        <Container>
+          <CategoryBoxLists listMainCategory={listMainCategory} />
+          <div className="special-product">
+            <h2 className="special-product__text">
+              <div className="special-product__link">Sản phẩm nổi bật</div>
+            </h2>
+          </div>
+          <Carousel
+            autoPlay={true}
+            showThumbs={false}
+            showIndicators={false}
+            showArrows={false}
+            infiniteLoop={true}
+            interval={6000}
+            transitionTime={800}
+          >
+            {
+              listHotProducts.map((hotProduct) => {
+                return (
+                  <div key={hotProduct.id}>
+                    <ProductCardLists listProduct={hotProduct.data} />
+                  </div>
+                )
+              })
+            }
+          </Carousel>
 
-        {listAllCategoryWithProductState.map((categoryWithProduct) => {
-          return (
-            <div key={categoryWithProduct.id} className="category-product">
-              <div className="category-title">
-                <h2 className="category-title__text">
-                  <a href={categoryWithProduct.name} className="category-title__link">{categoryWithProduct.name}</a>
-                </h2>
-              </div>
-              <div className="category-product__box">
-                <Row>
-                  <Col lg={3} className="hide-on-992">
-                    <ul className="category-product__list">
-                      {
-                        categoryWithProduct.sub_category.data.map((subCategory) => {
-                          return (
-                            <li key={subCategory.id} className={`category-product__item ${subCategory.isSelected && "active"}`}>
-                              <div
-                                data-id={subCategory.name}
-                                data-maincategoryname={categoryWithProduct.name}
-                                onClick={filterProductBySubCategoryName}
-                                className="category-product__link"
-                              >
-                                {subCategory.name}
-                              </div>
-                            </li>
-                          )
-                        })
-                      }
-                    </ul>
-                    <div className="category-product__img-box">
-                      <img src={ImagesPath.PRODUCT_BANNER.src} alt="alt" className="category-product__img" />
-                    </div>
-                  </Col>
-                  <Col lg={9}>
-                    <Row className="category-product__list-box">
-                      <ProductCardLists listProduct={categoryWithProduct.listProduct} />
-                    </Row>
-                    {
-                      categoryWithProduct.sub_category.hasMoreProducts &&
-                      <Row className="category-product__more">
-                        <button
-                          onClick={getMoreProduct}
-                          data-maincategoryname={categoryWithProduct.name}
-                          data-selectedcategory={categoryWithProduct.sub_category.currentSelected}
-                          data-nextpage={categoryWithProduct.sub_category.pageNumber}
-                          className="category-product__more-btn">
-                          More
-                        </button>
+          {listAllCategoryWithProductState.map((categoryWithProduct) => {
+            return (
+              <div key={categoryWithProduct.id} className="category-product">
+                <div className="category-title">
+                  <h2 className="category-title__text">
+                    <a href={categoryWithProduct.name} className="category-title__link">{categoryWithProduct.name}</a>
+                  </h2>
+                </div>
+                <div className="category-product__box">
+                  <Row>
+                    <Col lg={3} className="hide-on-992">
+                      <ul className="category-product__list">
+                        {
+                          categoryWithProduct.sub_category.data.map((subCategory) => {
+                            return (
+                              <li key={subCategory.id} className={`category-product__item ${subCategory.isSelected && "active"}`}>
+                                <div
+                                  data-id={subCategory.name}
+                                  data-maincategoryname={categoryWithProduct.name}
+                                  onClick={filterProductBySubCategoryName}
+                                  className="category-product__link"
+                                >
+                                  {subCategory.name}
+                                </div>
+                              </li>
+                            )
+                          })
+                        }
+                      </ul>
+                      <div className="category-product__img-box">
+                        <img src={ImagesPath.PRODUCT_BANNER.src} alt="alt" className="category-product__img" />
+                      </div>
+                    </Col>
+                    <Col lg={9}>
+                      <Row className="category-product__list-box">
+                        <ProductCardLists listProduct={categoryWithProduct.listProduct} />
                       </Row>
-                    }
-                  </Col>
-                </Row>
+                      {
+                        categoryWithProduct.sub_category.hasMoreProducts &&
+                        <Row className="category-product__more">
+                          <button
+                            onClick={getMoreProduct}
+                            data-maincategoryname={categoryWithProduct.name}
+                            data-selectedcategory={categoryWithProduct.sub_category.currentSelected}
+                            data-nextpage={categoryWithProduct.sub_category.pageNumber}
+                            className="category-product__more-btn">
+                            More
+                          </button>
+                        </Row>
+                      }
+                    </Col>
+                  </Row>
+                </div>
               </div>
-            </div>
-          )
-        })}
-      </Container>
+            )
+          })}
+        </Container>
+      </div>
+
 
     </>
   )

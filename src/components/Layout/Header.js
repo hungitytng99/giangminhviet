@@ -64,7 +64,7 @@ const Header = ({ listCategory = [] }) => {
                             </a>
                         </li>
                         <li className="header-center__item has-dropdown" onMouseOver={showDropDown} onMouseOut={hideDropDown}>
-                            <a href="/product" className={isShowCategoryDropdown ? "header-center__item-link active" : "header-center__item-link"}>
+                            <a href="/category" className={isShowCategoryDropdown ? "header-center__item-link active" : "header-center__item-link"}>
                                 <span>Product </span>
                                 <FontAwesomeIcon className="header-center__item-down" icon={["fas", "sort-down"]} />
                             </a>
@@ -75,7 +75,7 @@ const Header = ({ listCategory = [] }) => {
                                             return (
                                                 <Col key={category.id} >
                                                     <div className="product__dropdown-category">
-                                                        <a href={`/${category.name}`} className="product__dropdown-category-title">
+                                                        <a href={category.href} className="product__dropdown-category-title">
                                                             {category.name}
                                                         </a>
                                                         <ul className="product__dropdown-category-list">

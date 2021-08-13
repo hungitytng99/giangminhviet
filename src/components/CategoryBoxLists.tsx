@@ -19,7 +19,7 @@ const CategoryBoxLists: NextPage<Props> = (props) => {
                 listMainCategory.map((mainCategory) => {
                     return (
                         <Col key={mainCategory.id} sm={6} md={4}>
-                            <CardCategory category={mainCategory.name} image={mainCategory.image} href={mainCategory.name} />
+                            <CardCategory category={mainCategory.name} image={mainCategory.image} href={mainCategory.href} />
                         </Col>
                     )
                 })

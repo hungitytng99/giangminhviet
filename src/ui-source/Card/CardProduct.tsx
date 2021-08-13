@@ -65,7 +65,7 @@ const CardProduct: NextPage<Props> = (props) => {
     }
 
     const redirectToDetailProduct = (e: any) => {
-        location.href = e.currentTarget.dataset.href
+        location.replace("/" + e.currentTarget.dataset.href);
     }
 
     return (
@@ -76,7 +76,7 @@ const CardProduct: NextPage<Props> = (props) => {
                         <img src={product.main_image} alt={product.title} className="card-product__img img" />
                     </div>
                     <div className="card-product__option">
-                        <a href={product.slug} className="card-product__option-item">{detailText}</a>
+                        <a href={`/${product.slug}`} className="card-product__option-item">{detailText}</a>
                         <div onClick={showContactModal} data-productname={product.title} className="card-product__option-item">{contactText}</div>
                     </div>
                     {
