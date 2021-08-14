@@ -9,9 +9,10 @@ import { mainCategoryService } from 'src/data-services/category';
 import { useEffect, useState } from 'react';
 import { productService } from 'src/data-services/product';
 import FullPageLoading from 'src/ui-source/Loading/FullPageLoading';
+import Image from 'next/image'
 
 const Category = (props) => {
-    const { listCategoryWithProduct, mainCategoryAndSubCategory } = props;
+    const { listCategoryWithProduct = {}, mainCategoryAndSubCategory = {} } = props;
     const [listCategoryWithProductState, setListCategoryWithProductState] = useState(listCategoryWithProduct);
     const [isShowLoading, setIsShowLoading] = useState(false);
     console.log(listCategoryWithProductState);
@@ -69,7 +70,7 @@ const Category = (props) => {
                     listCategoryWithProductState.mainId &&
                     <Row className="category-page__banner">
                         <div className="img-box">
-                            <img className="img" src={listCategoryWithProductState.mainImage} alt={listCategoryWithProductState.mainName} />
+                            <Image layout="fill" className="img" src={listCategoryWithProductState.mainImage} alt={listCategoryWithProductState.mainName} />
                         </div>
                         <div className="category-page__banner-desc">
                             {listCategoryWithProductState.mainDesc}
@@ -97,7 +98,7 @@ const Category = (props) => {
                                     {
                                         filterCategory.map((item) => {
                                             return (
-                                                <option className="category-page__filter-option" value={item.value}>{item.label}</option>
+                                                <option key={item.value} className="category-page__filter-option" value={item.value}>{item.label}</option>
                                             )
                                         })
                                     }
@@ -114,7 +115,7 @@ const Category = (props) => {
                                 {
                                     filterMaterial.map((item) => {
                                         return (
-                                            <option className="category-page__filter-option" value={item.value}>{item.label}</option>
+                                            <option key={item.value} className="category-page__filter-option" value={item.value}>{item.label}</option>
                                         )
                                     })
                                 }
@@ -136,7 +137,7 @@ const Category = (props) => {
                                     {
                                         filterSort.map((item) => {
                                             return (
-                                                <option className="category-page__filter-option" value={item.value}>{item.label}</option>
+                                                <option key={item.value} className="category-page__filter-option" value={item.value}>{item.label}</option>
                                             )
                                         })
                                     }

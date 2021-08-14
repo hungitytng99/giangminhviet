@@ -6,12 +6,12 @@ import ProductCardLists from 'src/components/ProductCardLists';
 import ContactPop from 'src/components/ContactPop';
 import { mainCategoryService } from 'src/data-services/category';
 import { productService } from 'src/data-services/product';
-
+import Link from 'next/link'
 
 interface Props {
 }
 const Search: NextPage<Props> = (props: any) => {
-    const { mainCategoryAndSubCategory, listProduct, keyword, suggestProduct } = props;
+    const { mainCategoryAndSubCategory = {}, listProduct = {}, keyword = "", suggestProduct = {} } = props;
     console.log(listProduct);
 
     return (
@@ -24,11 +24,11 @@ const Search: NextPage<Props> = (props: any) => {
                         {
                             listProduct.length == 0 ?
                                 <div className="search__notify">
-                                    Không có bất ký kết quả nào phù hợp với từ khóa "<span>{keyword}</span>"
+                                    Không có bất ký kết quả nào phù hợp với từ khóa &quot;<span>{keyword}</span>&quot;
                                 </div>
                                 :
                                 <div className="search__notify">
-                                    Có <span className="amount">{listProduct.length}</span> kết quả tìm kiếm phù hợp với từ khóa "<span className="keyword">{keyword}</span>"
+                                    Có <span className="amount">{listProduct.length}</span> kết quả tìm kiếm phù hợp với từ khóa &quot;<span className="keyword">{keyword}</span>&quot;
                                 </div>
                         }
                         {/* <div className="search__box">
@@ -44,7 +44,9 @@ const Search: NextPage<Props> = (props: any) => {
                 <Row className="search__other-result">
                     <div className="special-product">
                         <h2 className="special-product__text">
-                            <a href="/" className="special-product__link">Sản phẩm khác</a>
+                            <Link href="/">
+                                <a className="special-product__link">Sản phẩm khác</a>
+                            </Link>
                         </h2>
                     </div>
                     <ProductCardLists listProduct={suggestProduct} />

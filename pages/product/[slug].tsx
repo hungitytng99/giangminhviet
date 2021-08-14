@@ -13,6 +13,8 @@ import { productService } from 'src/data-services/product';
 import ContactForm from 'src/components/ContactForm';
 import { useState } from 'react';
 import Modal from 'react-modal';
+import Link from 'next/link'
+import Image from 'next/image'
 
 interface Props {
   mainCategory?: string,
@@ -24,7 +26,7 @@ interface Props {
 }
 Modal.setAppElement('#__next');
 const Product: NextPage<Props> = (props: any) => {
-  const { mainCategoryAndSubCategory, detailProduct, relatedProducts } = props;
+  const { mainCategoryAndSubCategory = {}, detailProduct = {}, relatedProducts = {} } = props;
   const [contactModal, setContactModal] = useState(false);
 
   const showContactModal = (e: any) => {
@@ -98,7 +100,11 @@ const Product: NextPage<Props> = (props: any) => {
         <Row className="product__related-product">
           <div className="special-product">
             <h2 className="special-product__text">
-              <a href="/" className="special-product__link">Sản phẩm cùng loại</a>
+              <Link href="/" >
+                <a className="special-product__link">
+                  Sản phẩm cùng loại
+                </a>
+              </Link>
             </h2>
           </div>
           <ProductCardLists listProduct={relatedProducts} />
@@ -120,10 +126,12 @@ const Product: NextPage<Props> = (props: any) => {
         overlayClassName="Overlay"
       >
         <div className="contact-form__header">
-          <img className="contact-form__header-img" src={ImagesPath.LOGO_VUONG.src} alt="logo giang minh viet vuong" />
+          <div className="contact-form__header-img">
+            <Image layout="fill" objectFit='cover' src={ImagesPath.LOGO_VUONG.src} alt="logo giang minh viet vuong" />
+          </div>
           <div className="contact-form__header-text">
             Send your message to us
-            <span>We'll contact you as soon as possible</span>
+            <span>We&#39;ll contact you as soon as possible</span>
           </div>
           <div onClick={hideContactModal} className="contact-form__header-close">
             <FontAwesomeIcon icon={["fas", "times"]} />

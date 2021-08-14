@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
-import { NextPage } from "next";
 import { ImagesPath } from 'src/constants/ImagesPath';
 import SearchBar from 'src/components/SearchBar'
 import { Container, Row, Col, Collapse } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import CATEGORY_LIST from 'src/constants/CategoryList';
 import Modal from 'react-modal';
 import CategoryCollapse from './CategoryCollapse';
-import { category } from 'src/interface';
+import Link from 'next/link'
+import Image from 'next/image'
 
 const customStyles = {
     content: {
@@ -52,22 +51,31 @@ const Header = ({ listCategory = [] }) => {
                     <FontAwesomeIcon className="header-bars__icon" icon={["fas", "bars"]} />
                 </div>
                 <div className="header-left">
-                    <a href="/" className="header-left__logo">
-                        <img className="header-center__item-logo" src={ImagesPath.LOGO_NGANG.src} alt="logo giang minh viet" />
-                    </a>
+                    <Link href='/'>
+                        <a>
+                            <div className="header-center__item-logo">
+                                <Image layout="fill" objectFit='cover' src={ImagesPath.LOGO_NGANG} alt="logo giang minh viet vuong" />
+                            </div>
+                        </a>
+                    </Link>
                 </div>
                 <div className="header-center hide-on-992">
                     <ul className="header-center__list">
                         <li className="header-center__item">
-                            <a href="/" className="header-center__item-link">
-                                Home
-                            </a>
+                            <Link href="/">
+                                <a className="header-center__item-link">
+                                    Home
+                                </a>
+                            </Link>
                         </li>
                         <li className="header-center__item has-dropdown" onMouseOver={showDropDown} onMouseOut={hideDropDown}>
-                            <a href="/category" className={isShowCategoryDropdown ? "header-center__item-link active" : "header-center__item-link"}>
-                                <span>Product </span>
-                                <FontAwesomeIcon className="header-center__item-down" icon={["fas", "sort-down"]} />
-                            </a>
+                            <Link href="/category">
+                                <a className={isShowCategoryDropdown ? "header-center__item-link active" : "header-center__item-link"}>
+                                    <span>Product </span>
+                                    <FontAwesomeIcon className="header-center__item-down" icon={["fas", "sort-down"]} />
+                                </a>
+                            </Link>
+                            {console.log(listCategory)}
                             <div className={isShowCategoryDropdown ? "product__dropdown" : "display-none"}>
                                 <Row>
                                     {
@@ -75,9 +83,11 @@ const Header = ({ listCategory = [] }) => {
                                             return (
                                                 <Col key={category.id} >
                                                     <div className="product__dropdown-category">
-                                                        <a href={category.href} className="product__dropdown-category-title">
-                                                            {category.name}
-                                                        </a>
+                                                        <Link href={`/category/${category.id}` || '/'}>
+                                                            <a className="product__dropdown-category-title">
+                                                                {category.name}
+                                                            </a>
+                                                        </Link>
                                                         <ul className="product__dropdown-category-list">
                                                             {category.sub_category.data.map((item) => {
                                                                 return (
@@ -96,11 +106,10 @@ const Header = ({ listCategory = [] }) => {
                                         })
                                     }
                                     <Col>
-                                        <a href="#">
-                                            <img className="product__dropdown-banner" src={ImagesPath.PRODUCT_BANNER.src} alt="giang minh viet product banner" />
-                                        </a>
+                                        <div className="product__dropdown-banner">
+                                            <Image layout="fill" src={ImagesPath.PRODUCT_BANNER.src} alt="giang minh viet product banner" ></Image>
+                                        </div>
                                     </Col>
-
                                 </Row>
                             </div>
                         </li>
@@ -130,21 +139,30 @@ const Header = ({ listCategory = [] }) => {
                 <div className="category-mobile">
                     <div className="category-mobile__img-box">
                         <div></div>
-                        <img src={ImagesPath.LOGO_NGANG.src} alt="logo giang minh viet" className="category-mobile__img" />
+                        <div className="category-mobile__img">
+                            <Image layout="fill" src={ImagesPath.LOGO_NGANG} alt="logo giang minh viet" />
+                        </div>
+                        {/* <img src={ImagesPath.LOGO_NGANG.src} alt="logo giang minh viet" className="category-mobile__img" /> */}
                         <FontAwesomeIcon className="category-mobile__icon-close" icon={["fas", "times"]} onClick={closeCategoryModal} />
                     </div>
                     <ul className="category-mobile__list">
                         <li className="category-mobile__item">
-                            <a href="/" className="category-mobile__item-link"> Home </a>
+                            <Link href="/">
+                                <a className="category-mobile__item-link"> Home </a>
+                            </Link>
                         </li>
                         <li className="category-mobile__item">
                             <CategoryCollapse categoryNavItem={{ label: "Product", href: "/product" }} listCategory={listCategory} />
                         </li>
                         <li className="category-mobile__item">
-                            <a href="/about-us" className="category-mobile__item-link"> About us</a>
+                            <Link href="/about-us">
+                                <a className="category-mobile__item-link"> About </a>
+                            </Link>
                         </li>
                         <li className="category-mobile__item">
-                            <a href="/contact" className="category-mobile__item-link"> Contact</a>
+                            <Link href="/contact">
+                                <a className="category-mobile__item-link"> Contact </a>
+                            </Link>
                         </li>
                     </ul>
                 </div>

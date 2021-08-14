@@ -11,16 +11,13 @@ import { mainCategoryService } from 'src/data-services/category';
 import { productService } from 'src/data-services/product';
 import { useState } from 'react';
 import FullPageLoading from 'src/ui-source/Loading/FullPageLoading'
-import { useAmp } from 'next/amp'
-
-export const config = { amp: 'hybrid' }
+import Image from 'next/image'
 
 const Home = (props) => {
-  const { listMainCategory, listAllCategoryWithProduct, listHotProducts } = props;
+  const { listMainCategory = {}, listAllCategoryWithProduct = {}, listHotProducts = {} } = props;
   const [listAllCategoryWithProductState, setListAllCategoryWithProductState] = useState(listAllCategoryWithProduct);
   const [isShowLoading, setIsShowLoading] = useState(false);
   console.log(listAllCategoryWithProduct);
-  const isAmp = useAmp();
 
   const filterProductBySubCategoryName = async (e) => {
     try {
@@ -101,12 +98,8 @@ const Home = (props) => {
           showArrows={false}
           infiniteLoop={true}
         >
-          <div>
-            <img src={ImagesPath.IMG_BANNER_1.src} />
-          </div>
-          <div>
-            <img src={ImagesPath.IMG_BANNER_2.src} />
-          </div>
+          <Image layout="responsive" src={ImagesPath.IMG_BANNER_1} alt="giang minh viet banner" />
+          <Image layout="responsive" src={ImagesPath.IMG_BANNER_2} ali="giang minh viet banner handmade" />
         </Carousel>
         <Header listCategory={listAllCategoryWithProductState} />
         <Container>
@@ -166,7 +159,7 @@ const Home = (props) => {
                         }
                       </ul>
                       <div className="category-product__img-box">
-                        <img src={ImagesPath.PRODUCT_BANNER.src} alt="alt" className="category-product__img" />
+                        <Image layout="fill" objectFit='cover' src={ImagesPath.PRODUCT_BANNER.src} alt="giang minh viet image" className="category-product__img" />
                       </div>
                     </Col>
                     <Col lg={9}>

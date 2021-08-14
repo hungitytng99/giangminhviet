@@ -14,6 +14,11 @@ module.exports = {
         // Important: return the modified config
         return config
     },
+    images: {
+        domains: ['bizweb.dktcdn.net'],
+    },
     poweredByHeader: false,
-    generateEtags: false, 
+    generateEtags: false,
+    // images: {
+    // },
 };
