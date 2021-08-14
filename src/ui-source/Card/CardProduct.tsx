@@ -6,22 +6,6 @@ import ContactForm from 'src/components/ContactForm';
 import Modal from 'react-modal';
 import { product } from 'src/interface';
 
-const customStyles = {
-    content: {
-        inset: '50% 0px 0px 50%',
-        zIndex: 999,
-        backgroundColor: '#fff',
-        borderRadius: '4px',
-        padding: '20px',
-        border: '1px solid #eaeaea',
-        animation: 'appear linear 0.3s',
-        transform: 'translateX(-50%) translateY(-50%)',
-    },
-    overlay: {
-        zIndex: 999,
-        animation: 'appear linear 0.3s',
-    }
-};
 
 interface Props {
     detailText?: string,
@@ -115,7 +99,7 @@ const CardProduct: NextPage<Props> = (props) => {
                     </div>
                 </div>
                 <div className="contact-form__form">
-                    <ContactForm closeContact={closeContactForm} productName={productName} />
+                    <ContactForm closeContact={closeContactForm} productName={productName} productId={product.id}/>
                 </div>
             </Modal>
         </div>
