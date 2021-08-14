@@ -75,7 +75,6 @@ const Header = ({ listCategory = [] }) => {
                                     <FontAwesomeIcon className="header-center__item-down" icon={["fas", "sort-down"]} />
                                 </a>
                             </Link>
-                            {console.log(listCategory)}
                             <div className={isShowCategoryDropdown ? "product__dropdown" : "display-none"}>
                                 <Row>
                                     {

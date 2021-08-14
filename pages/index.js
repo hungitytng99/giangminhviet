@@ -12,12 +12,12 @@ import { productService } from 'src/data-services/product';
 import { useState } from 'react';
 import FullPageLoading from 'src/ui-source/Loading/FullPageLoading'
 import Image from 'next/image'
+import Footer from "src/components/Layout/Footer";
 
 const Home = (props) => {
-  const { listMainCategory = {}, listAllCategoryWithProduct = {}, listHotProducts = {} } = props;
+  const { listMainCategory = [], listAllCategoryWithProduct = [], listHotProducts = [] } = props;
   const [listAllCategoryWithProductState, setListAllCategoryWithProductState] = useState(listAllCategoryWithProduct);
   const [isShowLoading, setIsShowLoading] = useState(false);
-  console.log(listAllCategoryWithProduct);
 
   const filterProductBySubCategoryName = async (e) => {
     try {
@@ -134,7 +134,7 @@ const Home = (props) => {
               <div key={categoryWithProduct.id} className="category-product">
                 <div className="category-title">
                   <h2 className="category-title__text">
-                    <a href={categoryWithProduct.name} className="category-title__link">{categoryWithProduct.name}</a>
+                    <a href={categoryWithProduct.href} className="category-title__link">{categoryWithProduct.name}</a>
                   </h2>
                 </div>
                 <div className="category-product__box">
@@ -187,12 +187,11 @@ const Home = (props) => {
           })}
         </Container>
       </div>
-
-
+      <Footer/>
     </>
   )
 }
-export async function getStaticProps() {
+export async function getServerSideProps() {
   // const 
   try {
     const listMainCategory = await mainCategoryService.listMainCategoryAsync();

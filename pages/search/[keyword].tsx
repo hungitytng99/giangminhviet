@@ -7,12 +7,13 @@ import ContactPop from 'src/components/ContactPop';
 import { mainCategoryService } from 'src/data-services/category';
 import { productService } from 'src/data-services/product';
 import Link from 'next/link'
+import Footer from "src/components/Layout/Footer";
+
 
 interface Props {
 }
 const Search: NextPage<Props> = (props: any) => {
     const { mainCategoryAndSubCategory = {}, listProduct = {}, keyword = "", suggestProduct = {} } = props;
-    console.log(listProduct);
 
     return (
         <>
@@ -52,6 +53,7 @@ const Search: NextPage<Props> = (props: any) => {
                     <ProductCardLists listProduct={suggestProduct} />
                 </Row>
             </Container>
+            <Footer/>
         </>
     )
 }

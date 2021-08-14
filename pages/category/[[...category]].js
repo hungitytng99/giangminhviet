@@ -10,12 +10,13 @@ import { useEffect, useState } from 'react';
 import { productService } from 'src/data-services/product';
 import FullPageLoading from 'src/ui-source/Loading/FullPageLoading';
 import Image from 'next/image'
+import Footer from "src/components/Layout/Footer";
+
 
 const Category = (props) => {
     const { listCategoryWithProduct = {}, mainCategoryAndSubCategory = {} } = props;
     const [listCategoryWithProductState, setListCategoryWithProductState] = useState(listCategoryWithProduct);
     const [isShowLoading, setIsShowLoading] = useState(false);
-    console.log(listCategoryWithProductState);
 
     let statusFilter = {
         mainCategory: 'all',
@@ -23,7 +24,7 @@ const Category = (props) => {
         material: 'all',
         orderType: 'all',
     }
-
+    console.log(listCategoryWithProductState);
     const [statusFilterStatus, setStatusFilterState] = useState({
         mainCategory: 'all',
         subCategory: 'all',
@@ -37,10 +38,8 @@ const Category = (props) => {
         statusFilter[targetFilterName] = targetFilterValue;
         setStatusFilterState(statusFilter);
         setIsShowLoading(true);
-        console.log("PARAMS: ", statusFilter);
         const listProduct = await productService.listProductWithCategoryMaterial(statusFilter);
-        console.log(listProduct.data);
-        const newlistCategoryWithProductState = { ...listCategoryWithProductState, listProduct: listProduct.data};
+        const newlistCategoryWithProductState = { ...listCategoryWithProductState, listProduct: listProduct.data };
         setListCategoryWithProductState(newlistCategoryWithProductState);
         setIsShowLoading(false);
     }
@@ -148,9 +147,11 @@ const Category = (props) => {
                     <ProductCardLists listProduct={listCategoryWithProductState.listProduct} />
                 </div>
             </Container>
+            {/* <Footer/> */}
         </>
     )
 }
+
 export async function getServerSideProps(context) {
     const { category = {} } = context.params;
     let mainId = category[0] || '';

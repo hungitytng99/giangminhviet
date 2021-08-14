@@ -15,6 +15,8 @@ import { useState } from 'react';
 import Modal from 'react-modal';
 import Link from 'next/link'
 import Image from 'next/image'
+import Footer from "src/components/Layout/Footer";
+
 
 interface Props {
   mainCategory?: string,
@@ -28,7 +30,7 @@ Modal.setAppElement('#__next');
 const Product: NextPage<Props> = (props: any) => {
   const { mainCategoryAndSubCategory = {}, detailProduct = {}, relatedProducts = {} } = props;
   const [contactModal, setContactModal] = useState(false);
-
+  
   const showContactModal = (e: any) => {
     e.stopPropagation();
     setContactModal(true);
@@ -69,12 +71,12 @@ const Product: NextPage<Props> = (props: any) => {
             </div>
             <div className="product__detail-price">
               {detailProduct.price}
-              <span>₫</span>
+               <span>$</span>
             </div>
 
             <div className="product__detail-contact">
               <div onClick={showContactModal} className="product__detail-contact-link">
-                Contact
+                Inquiry
               </div>
             </div>
             <div className="product__detail-highlight">
@@ -119,6 +121,7 @@ const Product: NextPage<Props> = (props: any) => {
         </Row>
 
       </Container>
+      <Footer/>
       <Modal
         isOpen={contactModal}
         onRequestClose={hideContactModal}
@@ -149,6 +152,7 @@ export async function getServerSideProps(context: any) {
   const { slug } = context.params;
   const mainCategoryWithSub = await mainCategoryService.listCategoryWithSubCategory();
   const detailProduct = await productService.detailProductBySlugAsync(slug);
+  
   const relatedProducts = await productService.listProductBySubCategoryName(
     { main_category: detailProduct.data.main_category, category: detailProduct.data.sub_category, productsPerPage: 4, pageNumber: 1 }
   );

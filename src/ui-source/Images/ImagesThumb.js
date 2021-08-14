@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { NextPage } from "next";
-import ReactImageMagnify from 'react-image-magnify';
 import { Col, Row } from 'react-bootstrap';
-
+import ReactImageMagnify from 'react-image-magnify';
+import ReactImageZoom from 'react-image-zoom';
+import { ImagesPath } from 'src/constants/ImagesPath';
+import Zoom from 'react-medium-image-zoom'
+import 'react-medium-image-zoom/dist/styles.css'
 // [{ src: ImagesPath.PRODUCT.src, alt: "" }, { src: ImagesPath.PRODUCT_2.src, alt: "" }, { src: ImagesPath.SP.src, alt: "" }]
 const ImagesThumb = ({ listImages }) => {
     let count = -1;
@@ -14,6 +17,8 @@ const ImagesThumb = ({ listImages }) => {
             ...item,
         }
     })
+    console.log(listImages);
+
     const [listImagesStatus, setlistImagesStatus] = useState(listImages)
     const [currentImageSelected, setCurrentImageSelected] = useState(listImages[0]);
     const selectImage = (e) => {
@@ -25,7 +30,6 @@ const ImagesThumb = ({ listImages }) => {
         setCurrentImageSelected(newListImage[indexImgSelected]);
         setlistImagesStatus(newListImage);
     }
-
     return (
         <div className="images-thumb">
             <Row className="images-thumb__row">
@@ -43,32 +47,19 @@ const ImagesThumb = ({ listImages }) => {
                 <Col xs={10}>
                     <div className="img-box">
                         <div className="img">
-                            <ReactImageMagnify
-                                enlargedImageContainerStyle={{ zIndex: 3 }}
-                                enlargedImageContainerClassName="hide-on-768"
-                                {...{
-                                    smallImage: {
-                                        alt: currentImageSelected?.alt,
-                                        isFluidWidth: true,
-                                        src: currentImageSelected?.src
-                                    },
-                                    largeImage: {
-                                        src: currentImageSelected?.src,
-                                        width: 1000,
-                                        height: 1000
-                                    }
-                                }} />
+                            <Zoom>
+                                <img
+                                    alt={currentImageSelected?.alt}
+                                    src={currentImageSelected?.src}
+                                    width="100%"
+                                />
+                            </Zoom>
                         </div>
 
                     </div>
                 </Col>
 
             </Row>
-
-
-
-
-
         </div >
     );
 }

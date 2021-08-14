@@ -9,6 +9,7 @@ import zalo from 'public/zalo.png'
 import product from 'public/sp.jpg'
 import product_2 from 'public/sp-2.jpg'
 import phong_ngu from 'public/phong-ngu.jpg'
+import zalo_footer from 'public/zalo-footer.png'
 
 const ImagesPath = {
     IMG_BANNER_1: img_banner_1,
@@ -22,5 +23,6 @@ const ImagesPath = {
     PRODUCT: product,
     PRODUCT_2: product_2,
     PHONG_NGU: phong_ngu,
+    ZALO_FOOTER: zalo_footer
 }
 export { ImagesPath }

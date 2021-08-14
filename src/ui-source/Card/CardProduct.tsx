@@ -44,7 +44,6 @@ const CardProduct: NextPage<Props> = (props) => {
     }
 
     const closeContactForm = (e: SyntheticEvent) => {
-        e.preventDefault();
         setContactModal(false);
     }
 

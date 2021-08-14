@@ -35,8 +35,12 @@ const ContactForm = (props) => {
                 product_name: productName
             }
             const response = await inquiryService.sendCustomerInquiry(inquiryBody);
-            console.log(response);
             setMessageAfterValidate(response.message);
+            if(response.message == "Thank for your information. We will contact you as soon as possible!" ) {
+                // setTimeout(() => {
+                //     closeContact();
+                // }, 1000)
+            }
             setIsShowLoading(false);
         } catch (error) {
             setIsShowLoading(false);
