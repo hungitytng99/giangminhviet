@@ -10,10 +10,6 @@ const ProductCardLists: NextPage<Props> = ({ listProduct = [] }) => {
     
     return (
         <Row>
-            {/* {
-                (listProduct.length == 0) && 
-                <div className="product-card-lists__empty">No result</div>
-            } */}
             {
                 listProduct.map((product) => {
                     return (

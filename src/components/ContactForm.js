@@ -45,7 +45,6 @@ const ContactForm = (props) => {
         } catch (error) {
             setIsShowLoading(false);
             setMessageAfterValidate('An error occurs when you send your information. Please try again later!');
-            console.log("SEND INQUIRY ERROR - CONTACT FORM: ", error);
         }
     }
 

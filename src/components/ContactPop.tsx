@@ -16,7 +16,7 @@ const ContactPop: NextPage<Props> = ({ }) => {
                     <FontAwesomeIcon className="contact-pop__icon has-animation" icon={["fas", "phone-alt"]} />
                 </a>
             </Link>
-            <Link href={{ pathname: 'mailto:haunkbn99@gmail.com' }} >
+            <Link href={{ pathname: 'mailto:sales@giangminhviet.com' }} >
                 <a target="_blank" className="contact-pop__box">
                     <FontAwesomeIcon className="contact-pop__icon" icon={["fas", "envelope"]} />
                 </a>

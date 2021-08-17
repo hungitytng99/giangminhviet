@@ -24,7 +24,6 @@ const Category = (props) => {
         material: 'all',
         orderType: 'all',
     }
-    console.log(listCategoryWithProductState);
     const [statusFilterStatus, setStatusFilterState] = useState({
         mainCategory: 'all',
         subCategory: 'all',

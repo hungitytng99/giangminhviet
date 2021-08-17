@@ -48,7 +48,6 @@ const Home = (props) => {
       setIsShowLoading(false);
     } catch (error) {
       setIsShowLoading(false);
-      console.log("An error is occur when filter category");
     }
 
   }
@@ -82,10 +81,9 @@ const Home = (props) => {
       setIsShowLoading(false);
     } catch (error) {
       setIsShowLoading(false);
-      console.log("An error is occur when filter category");
     }
   }
-
+  console.log(listAllCategoryWithProductState);
   return (
     <>
       <main className="home-page">
@@ -98,8 +96,15 @@ const Home = (props) => {
           showArrows={false}
           infiniteLoop={true}
         >
-          <Image layout="responsive" src={ImagesPath.IMG_BANNER_1} alt="giang minh viet banner" />
-          <Image layout="responsive" src={ImagesPath.IMG_BANNER_2} ali="giang minh viet banner handmade" />
+          <div className="home__banner-img">
+            <Image layout="fill" objectFit="contain" src="https://sc02.alicdn.com/kf/H59afebfc600f4e8b8f9a7711b5aa9c70q.jpg" alt="giang minh viet banner" />
+          </div>
+          <div className="home__banner-img">
+            <Image layout="fill" objectFit="contain" src="https://sc02.alicdn.com/kf/H2a89227900d646a1bd047286d867a67ek.jpg" ali="giang minh viet banner handmade" />
+          </div>
+          <div className="home__banner-img">
+            <Image layout="fill" objectFit="contain" src="https://sc02.alicdn.com/kf/H4e559a244ef54403bf0941fd04374410Q.jpg" ali="giang minh viet banner handmade" />
+          </div>
         </Carousel>
         <Header listCategory={listAllCategoryWithProductState} />
         <Container>
@@ -159,7 +164,7 @@ const Home = (props) => {
                         }
                       </ul>
                       <div className="category-product__img-box">
-                        <Image layout="fill" objectFit='cover' src={ImagesPath.PRODUCT_BANNER.src} alt="giang minh viet image" className="category-product__img" />
+                        <Image layout="fill" objectFit='cover' src={categoryWithProduct.image} alt="giang minh viet image" className="category-product__img" />
                       </div>
                     </Col>
                     <Col lg={9}>
@@ -187,7 +192,7 @@ const Home = (props) => {
           })}
         </Container>
       </main>
-      <Footer/>
+      <Footer />
     </>
   )
 }
@@ -206,7 +211,6 @@ export async function getServerSideProps() {
     }
   } catch (e) {
     // handle eror there
-    console.log("ERROR on HOMEPAGE getStaticProps:", e);
   }
 }
 export default Home

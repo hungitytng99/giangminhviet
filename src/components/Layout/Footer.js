@@ -7,6 +7,7 @@ function Footer() {
     return (
         <footer className="footer">
             <Container>
+
                 <Row>
                     <Col lg={4} md={4} sm={6} xs={12}>
                         <div className="footer__contact">
@@ -16,32 +17,32 @@ function Footer() {
                                     <i className="footer__contact-item-icon fa fa-home"></i>
                                     <div className="footer__contact-text">
                                         <div className="footer__contact-text-name">
-                                            Factory 1: Ninh Sở - Thường Tín - Hà Nội
+                                            Factory 1: Kim Son - Ninh Binh
                                         </div>
                                         <div className="footer__contact-text-name">
-                                            Factory 2: Phú Nghĩa - Chương Mỹ - Hà Nội
+                                            Factory 2: Phong Khe - Bac Ninh
                                         </div>
                                     </div>
                                 </li>
                                 <li key="2" className="footer__contact-item">
                                     <i className="footer__contact-item-icon fa fa-mobile"></i>
                                     <div className="footer__contact-text">
-                                        +84 972874229
+                                        +84 966854224
                                     </div>
                                 </li>
                                 <li key="3" className="footer__contact-item">
                                     <i className="footer__contact-item-icon fa fa fa-envelope"></i>
                                     <div className="footer__contact-text">
-                                        sales@tienphonghandicrafts.com
+                                        sales@giangminhviet.com
                                     </div>
                                 </li>
                             </ul>
                         </div>
                     </Col>
-                    <Col lg={4}>
+                    <Col lg={4} md={4} sm={6} xs={12}>
                         <div className="footer__alibaba">
-                            <Link href="https://tienphonghandicrafts.trustpass.alibaba.com/" passHref>
-                                <a className="footer__img">
+                            <Link href="https://giangminhviet.trustpass.alibaba.com/" passHref>
+                                <a className="footer__img" target="_blank">
                                     <Image objectFit='contain' layout="fill" src="http://bizweb.dktcdn.net/thumb/medium/100/390/639/themes/770475/assets/logocuoitrang.png?1594051192591" alt="alibaba" />
                                 </a>
                             </Link>
@@ -60,7 +61,7 @@ function Footer() {
                                     </Link>
                                 </li>
                                 <li key="10" className="footer__connect-item">
-                                    <Link href={{ pathname: 'mailto:haunkbn99@gmail.com' }} >
+                                    <Link href={{ pathname: 'mailto:sales@giangminhviet.com' }} >
                                         <a target="_blank">
                                             <i className="footer__connect-mail fas fa-envelope"></i>
                                         </a>

@@ -140,6 +140,7 @@ export const productService = {
     },
     listAllCategoryWithProduct: function (productParams) {
         return mainCategoryService.listMainCategoryAsync().then(async (response) => {
+            console.log("RES", response);
             let listProductByMainCategory = []
             for (let i = 0; i < response.data.length; i++) {
 
@@ -147,6 +148,7 @@ export const productService = {
                     id: response.data[i].id,
                     name: response.data[i].name,
                     href: "/category/" + response.data[i].id,
+                    image: response.data[i].image,
                     sub_category: [],
                     listProduct: []
                 }
