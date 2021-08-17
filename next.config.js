@@ -1,6 +1,6 @@
 module.exports = {
     env: {
-        NEXT_PUBLIC_GOOGLE_ANALYTICS='GTM-N3Z38Q2'
+        NEXT_PUBLIC_GOOGLE_ANALYTICS:'GTM-N3Z38Q2'
     },
     webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
         // Important: return the modified config

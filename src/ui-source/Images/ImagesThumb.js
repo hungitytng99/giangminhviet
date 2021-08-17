@@ -17,8 +17,6 @@ const ImagesThumb = ({ listImages }) => {
             ...item,
         }
     })
-    console.log(listImages);
-
     const [listImagesStatus, setlistImagesStatus] = useState(listImages)
     const [currentImageSelected, setCurrentImageSelected] = useState(listImages[0]);
     const selectImage = (e) => {
