@@ -67,8 +67,11 @@ const Category = (props) => {
                 {
                     listCategoryWithProductState.mainId &&
                     <Row className="category-page__banner">
-                        <div className="img-box">
-                            <Image layout="fill" objectFit="cover" src={listCategoryWithProductState.mainImage} alt={listCategoryWithProductState.mainName} />
+                        <div className="category-page__img-box">
+                            {
+                                listCategoryWithProductState.subMainImage &&
+                                <Image layout="fill" objectFit="cover" src={listCategoryWithProductState.subMainImage} alt={listCategoryWithProductState.mainName} />
+                            }
                         </div>
                         <div className="category-page__banner-desc">
                             {listCategoryWithProductState.mainDesc}
@@ -146,7 +149,7 @@ const Category = (props) => {
                     <ProductCardLists listProduct={listCategoryWithProductState.listProduct} />
                 </div>
             </Container>
-            {/* <Footer/> */}
+            <Footer />
         </>
     )
 }
@@ -183,13 +186,15 @@ export async function getServerSideProps(context) {
             listProduct = await productService.listProductByCategoryId(mainId, { productsPerPage: 8, pageNumber: 1 })
         }
     }
+    console.log(detailMain);
     let listCategoryWithProduct = {
         mainId: mainId || '',
         mainName: detailMain.data.name || 'All Product',
         mainImage: detailMain.data.image || '',
+        subMainImage: detailMain.data.sub_image,
         mainDesc: detailMain.data.description || '',
         subId: subId || '',
-        subList: [{ value: "all", label: "All" }, ...detailMain.data.sub_category.map((item) => {
+        subList: [{ value: "all", label: "All" }, ...detailMain?.data?.sub_category?.map((item) => {
             return {
                 value: item.name,
                 label: item.name

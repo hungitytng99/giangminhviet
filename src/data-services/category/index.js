@@ -25,7 +25,8 @@ export const mainCategoryService = {
                 image: response.data?.url_image,
                 description: response.data?.description,
                 href: "/category/" + response.data?.id,
-                sub_category: response.data?.sub_category
+                sub_category: response.data?.sub_category,
+                sub_image: response.data?.sub_image || ''
             }
             return response;
         });
@@ -53,7 +54,7 @@ export const mainCategoryService = {
                     id: item?.id,
                     name: item?.name,
                     image: item?.url_image,
-                    href: "/category/" + item?.id
+                    href: "/category/" + item?.id,
                 }
             });
             return response;

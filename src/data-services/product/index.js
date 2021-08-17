@@ -30,7 +30,8 @@ export const productService = {
                 material: response.data?.material,
                 main_category: mainCategory?.data.name,
                 sub_category: subCategory?.data.name,
-                slug: response.data?.slug
+                slug: response.data?.slug,
+                main_category_id: response?.data?.main_category_id
             }
             return response;
         });

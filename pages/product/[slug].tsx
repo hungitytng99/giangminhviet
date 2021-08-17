@@ -52,7 +52,7 @@ const Product: NextPage<Props> = (props: any) => {
         <Row>
           <Breadcrumb className="product__breadcrumb">
             <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
-            <Breadcrumb.Item href="/phong-bep">
+            <Breadcrumb.Item href={`/category/${detailProduct.main_category_id}`}>
               {detailProduct.main_category}
             </Breadcrumb.Item>
             <Breadcrumb.Item active>{detailProduct.sub_category}</Breadcrumb.Item>
