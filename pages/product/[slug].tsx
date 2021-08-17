@@ -16,7 +16,7 @@ import Modal from 'react-modal';
 import Link from 'next/link'
 import Image from 'next/image'
 import Footer from "src/components/Layout/Footer";
-
+import Head from 'next/head'
 
 interface Props {
   mainCategory?: string,
@@ -30,7 +30,7 @@ Modal.setAppElement('#__next');
 const Product: NextPage<Props> = (props: any) => {
   const { mainCategoryAndSubCategory = {}, detailProduct = {}, relatedProducts = {} } = props;
   const [contactModal, setContactModal] = useState(false);
-  
+
   const showContactModal = (e: any) => {
     e.stopPropagation();
     setContactModal(true);
@@ -46,6 +46,9 @@ const Product: NextPage<Props> = (props: any) => {
   }
   return (
     <>
+      <Head>
+        <title>{detailProduct.title}</title>
+      </Head>
       <Header listCategory={mainCategoryAndSubCategory} />
       <ContactPop />
       <Container className="product">
@@ -71,7 +74,6 @@ const Product: NextPage<Props> = (props: any) => {
             </div>
             <div className="product__detail-price">
               {detailProduct.price}
-               <span>$</span>
             </div>
 
             <div className="product__detail-contact">
@@ -121,7 +123,7 @@ const Product: NextPage<Props> = (props: any) => {
         </Row>
 
       </Container>
-      <Footer/>
+      <Footer />
       <Modal
         isOpen={contactModal}
         onRequestClose={hideContactModal}
@@ -141,7 +143,7 @@ const Product: NextPage<Props> = (props: any) => {
           </div>
         </div>
         <div className="contact-form__form">
-          <ContactForm closeContact={closeContactForm} productName={detailProduct.title} productId={detailProduct.id}/>
+          <ContactForm closeContact={closeContactForm} productName={detailProduct.title} productId={detailProduct.id} />
         </div>
       </Modal>
     </>
@@ -152,7 +154,7 @@ export async function getServerSideProps(context: any) {
   const { slug } = context.params;
   const mainCategoryWithSub = await mainCategoryService.listCategoryWithSubCategory();
   const detailProduct = await productService.detailProductBySlugAsync(slug);
-  
+
   const relatedProducts = await productService.listProductBySubCategoryName(
     { main_category: detailProduct.data.main_category, category: detailProduct.data.sub_category, productsPerPage: 4, pageNumber: 1 }
   );
