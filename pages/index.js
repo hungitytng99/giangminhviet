@@ -83,7 +83,6 @@ const Home = (props) => {
       setIsShowLoading(false);
     }
   }
-  console.log(listAllCategoryWithProductState);
   return (
     <>
       <main className="home-page">

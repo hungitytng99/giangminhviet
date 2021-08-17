@@ -143,7 +143,7 @@ const Product: NextPage<Props> = (props: any) => {
           </div>
         </div>
         <div className="contact-form__form">
-          <ContactForm closeContact={closeContactForm} productName={detailProduct.title} productId={detailProduct.id} />
+          <ContactForm productSlug={detailProduct.slug} closeContact={closeContactForm} productName={detailProduct.title} productId={detailProduct.id} />
         </div>
       </Modal>
     </>

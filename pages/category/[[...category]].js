@@ -186,7 +186,6 @@ export async function getServerSideProps(context) {
             listProduct = await productService.listProductByCategoryId(mainId, { productsPerPage: 8, pageNumber: 1 })
         }
     }
-    console.log(detailMain);
     let listCategoryWithProduct = {
         mainId: mainId || '',
         mainName: detailMain.data.name || 'All Product',

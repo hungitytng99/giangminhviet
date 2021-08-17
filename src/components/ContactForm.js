@@ -20,7 +20,6 @@ const ContactForm = (props) => {
     const { productSlug, productId, productName, closeContact = () => { } } = props;
     const [isShowLoading, setIsShowLoading] = useState(false);
     const [messageAfterValidate, setMessageAfterValidate] = useState('');
-
     const sendContact = async (values) => {
         try {
             setIsShowLoading(true);
