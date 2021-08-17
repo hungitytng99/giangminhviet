@@ -69,7 +69,7 @@ const Category = (props) => {
                     listCategoryWithProductState.mainId &&
                     <Row className="category-page__banner">
                         <div className="img-box">
-                            <Image layout="fill" className="img" src={listCategoryWithProductState.mainImage} alt={listCategoryWithProductState.mainName} />
+                            <Image layout="fill" objectFit="cover" src={listCategoryWithProductState.mainImage} alt={listCategoryWithProductState.mainName} />
                         </div>
                         <div className="category-page__banner-desc">
                             {listCategoryWithProductState.mainDesc}

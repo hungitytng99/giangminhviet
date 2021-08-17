@@ -15,7 +15,7 @@ module.exports = {
         return config
     },
     images: {
-        domains: ['bizweb.dktcdn.net'],
+        domains: ['bizweb.dktcdn.net','sc04.alicdn.com'],
     },
     poweredByHeader: false,
     generateEtags: false,
