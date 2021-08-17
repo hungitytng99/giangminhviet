@@ -1,12 +1,10 @@
-import { ImagesPath } from 'src/constants/ImagesPath';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Header from 'src/components/Layout/Header';
 import { Breadcrumb, Col, Container, Row } from 'react-bootstrap';
 import ProductCardLists from 'src/components/ProductCardLists';
 import ContactPop from 'src/components/ContactPop';
-import Select from 'react-select'
 import { mainCategoryService } from 'src/data-services/category';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { productService } from 'src/data-services/product';
 import FullPageLoading from 'src/ui-source/Loading/FullPageLoading';
 import Image from 'next/image'
@@ -14,10 +12,9 @@ import Footer from "src/components/Layout/Footer";
 
 
 const Category = (props) => {
-    const { listCategoryWithProduct = {}, mainCategoryAndSubCategory = {} } = props;
-    const [listCategoryWithProductState, setListCategoryWithProductState] = useState(listCategoryWithProduct);
+    const { listCategoryWithProduct = [], mainCategoryAndSubCategory = [] } = props;
+    // const [listCategoryWithProduct, setListCategoryWithProductState] = useState(listCategoryWithProduct);
     const [isShowLoading, setIsShowLoading] = useState(false);
-
     let statusFilter = {
         mainCategory: 'all',
         subCategory: 'all',
@@ -38,13 +35,13 @@ const Category = (props) => {
         setStatusFilterState(statusFilter);
         setIsShowLoading(true);
         const listProduct = await productService.listProductWithCategoryMaterial(statusFilter);
-        const newlistCategoryWithProductState = { ...listCategoryWithProductState, listProduct: listProduct.data };
+        const newlistCategoryWithProductState = { ...listCategoryWithProduct, listProduct: listProduct.data };
         setListCategoryWithProductState(newlistCategoryWithProductState);
         setIsShowLoading(false);
     }
 
-    const filterCategory = listCategoryWithProductState.subList;
-    const filterMaterial = listCategoryWithProductState.listMaterial;
+    const filterCategory = listCategoryWithProduct.subList;
+    const filterMaterial = listCategoryWithProduct.listMaterial;
     const filterSort = [
         { value: 'all', label: 'All' },
         { value: '2', label: 'Newest' },
@@ -60,21 +57,21 @@ const Category = (props) => {
                     <Breadcrumb className="product__breadcrumb">
                         <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
                         <Breadcrumb.Item active>
-                            {listCategoryWithProductState.mainName}
+                            {listCategoryWithProduct.mainName}
                         </Breadcrumb.Item>
                     </Breadcrumb>
                 </Row>
                 {
-                    listCategoryWithProductState.mainId &&
+                    listCategoryWithProduct.mainId &&
                     <Row className="category-page__banner">
                         <div className="category-page__img-box">
                             {
-                                listCategoryWithProductState.subMainImage &&
-                                <Image layout="fill" objectFit="cover" src={listCategoryWithProductState.subMainImage} alt={listCategoryWithProductState.mainName} />
+                                listCategoryWithProduct.subMainImage &&
+                                <Image layout="fill" objectFit="cover" src={listCategoryWithProduct.subMainImage} alt={listCategoryWithProduct.mainName} />
                             }
                         </div>
                         <div className="category-page__banner-desc">
-                            {listCategoryWithProductState.mainDesc}
+                            {listCategoryWithProduct.mainDesc}
                         </div>
                     </Row>
                 }
@@ -88,7 +85,7 @@ const Category = (props) => {
                     </div>
                     <div className="category-page__filter-box">
                         {
-                            listCategoryWithProductState.mainId &&
+                            listCategoryWithProduct.mainId &&
                             <div className="category-page__filter-field">
                                 <select
                                     name="subCategory"
@@ -125,7 +122,7 @@ const Category = (props) => {
                     </div>
                     <div className="category-page__title-box">
                         <div className="category-page__title">
-                            {listCategoryWithProductState.mainName}
+                            {listCategoryWithProduct.mainName}
                         </div>
                         <div className="category-page__sort">
                             <div className="category-page__sort-select">
@@ -146,7 +143,7 @@ const Category = (props) => {
                             </div>
                         </div>
                     </div>
-                    <ProductCardLists listProduct={listCategoryWithProductState.listProduct} />
+                    <ProductCardLists listProduct={listCategoryWithProduct.listProduct} />
                 </div>
             </Container>
             <Footer />
@@ -155,7 +152,7 @@ const Category = (props) => {
 }
 
 export async function getServerSideProps(context) {
-    const { category = {} } = context.params;
+    const { category = [] } = context.params;
     let mainId = category[0] || '';
     let subId = category[1] || '';
     let detailMain = {

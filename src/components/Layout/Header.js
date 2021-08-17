@@ -82,7 +82,7 @@ const Header = ({ listCategory = [] }) => {
                                             return (
                                                 <Col key={category.id} >
                                                     <div className="product__dropdown-category">
-                                                        <Link href={`/category/${category.id}` || '/'}>
+                                                        <Link href={`/category/${category.id}` || '/'} passHref={true} replace={true}>
                                                             <a className="product__dropdown-category-title">
                                                                 {category.name}
                                                             </a>
