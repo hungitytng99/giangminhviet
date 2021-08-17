@@ -1,14 +1,6 @@
 module.exports = {
     env: {
-        NEXT_PUBLIC_BASE_API: "http://api.likestoday.vn"
-    },
-    async rewrites() {
-        return [
-            {
-                source: '/home',
-                destination: '/home-page',
-            },
-        ]
+        NEXT_PUBLIC_GOOGLE_ANALYTICS='GTM-N3Z38Q2'
     },
     webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
         // Important: return the modified config

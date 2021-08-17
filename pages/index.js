@@ -88,7 +88,7 @@ const Home = (props) => {
 
   return (
     <>
-      <div className="home-page">
+      <main className="home-page">
         {isShowLoading && <FullPageLoading opacity={0.5} />}
         <Contact />
         <Carousel
@@ -186,7 +186,7 @@ const Home = (props) => {
             )
           })}
         </Container>
-      </div>
+      </main>
       <Footer/>
     </>
   )

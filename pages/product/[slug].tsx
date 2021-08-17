@@ -92,11 +92,11 @@ const Product: NextPage<Props> = (props: any) => {
               </span>
               <span>Material: </span> {detailProduct.material}
             </div>
-            <div className="product__detail-info-detail">
+            <article className="product__detail-info-detail">
               <FontAwesomeIcon className="product__detail-detail-icon" icon={["fas", "info-circle"]} />
               <span>Detail: </span>
               {detailProduct.description}
-            </div>
+            </article>
           </Col>
         </Row>
         <Row className="product__related-product">

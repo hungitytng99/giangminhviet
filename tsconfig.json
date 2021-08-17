@@ -15,6 +15,6 @@
     "jsx": "preserve",
     "baseUrl": "."
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "server.js", "pages/product/index.tsx", "src/ui-source/Images/ImagesThumb.js", "pages/category/index.js", "src/components/Layout/Header.js", "src/components/Layout/CategoryCollapse.js", "src/components/ContactForm.js", "src/components/SearchBar.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "server.js", "pages/product/index.tsx", "src/ui-source/Images/ImagesThumb.js", "pages/category/index.js", "src/components/Layout/Header.js", "src/components/Layout/CategoryCollapse.js", "src/components/ContactForm.js", "src/components/SearchBar.js", "pages/_document.js"],
   "exclude": ["node_modules"]
 }
