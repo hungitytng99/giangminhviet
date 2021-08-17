@@ -80,7 +80,7 @@ function Footer() {
                     </Col>
                 </Row>
                 <Row>
-                    <p className="footer__coppy-right">&#169; Giang Minh Việt CO., LTD </p>
+                    <p className="footer__coppy-right">&#169; GIANG MINH VIET CO., LTD </p>
                 </Row>
             </Container>
         </footer>
