@@ -97,13 +97,13 @@ const Home = (props) => {
           infiniteLoop={true}
         >
           <div className="home__banner-img">
-            <Image layout="fill" objectFit="contain" src="https://sc02.alicdn.com/kf/H59afebfc600f4e8b8f9a7711b5aa9c70q.jpg" alt="giang minh viet banner" />
+            <Image layout="fill" objectFit="contain" src={ImagesPath.HOME_BANNER_1} alt="giang minh viet banner" />
           </div>
           <div className="home__banner-img">
-            <Image layout="fill" objectFit="contain" src="https://sc02.alicdn.com/kf/H2a89227900d646a1bd047286d867a67ek.jpg" ali="giang minh viet banner handmade" />
+            <Image layout="fill" objectFit="contain" src={ImagesPath.HOME_BANNER_2} alt="giang minh viet banner handmade" />
           </div>
           <div className="home__banner-img">
-            <Image layout="fill" objectFit="contain" src="https://sc02.alicdn.com/kf/H4e559a244ef54403bf0941fd04374410Q.jpg" ali="giang minh viet banner handmade" />
+            <Image layout="fill" objectFit="contain" src={ImagesPath.HOME_BANNER_3} alt="giang minh viet banner handmade" />
           </div>
         </Carousel>
         <Header listCategory={listAllCategoryWithProductState} />

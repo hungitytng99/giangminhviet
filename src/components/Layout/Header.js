@@ -106,7 +106,7 @@ const Header = ({ listCategory = [] }) => {
                                     }
                                     <Col>
                                         <div className="product__dropdown-banner">
-                                            <Image layout="fill" src='https://sc04.alicdn.com/kf/U6e5328c9063843039e28d3f724324e22Z/250965769/U6e5328c9063843039e28d3f724324e22Z.png' alt="giang minh viet product banner" ></Image>
+                                            <Image layout="fill" src={ImagesPath.HEADER_DROP_DOWN} alt="giang minh viet product banner" ></Image>
                                         </div>
                                     </Col>
                                 </Row>
