@@ -119,7 +119,6 @@ const ContactForm = (props) => {
                         />
                         <div className="contact-form__btn-group">
                             <div className="contact-form__message-submit">{messageAfterValidate}</div>
-                            <button type="button" onClick={closeContact} className="contact-form__btn cancel">Cancel</button>
                             <button className="contact-form__btn send" type="submit">Send</button>
                         </div>
                     </Form>

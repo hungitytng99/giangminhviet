@@ -9,7 +9,6 @@ import { productService } from 'src/data-services/product';
 import Link from 'next/link'
 import Footer from "src/components/Layout/Footer";
 
-
 interface Props {
 }
 const Search: NextPage<Props> = (props: any) => {

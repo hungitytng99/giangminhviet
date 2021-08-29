@@ -110,7 +110,7 @@ const Home = (props) => {
           <CategoryBoxLists listMainCategory={listMainCategory} />
           <div className="special-product">
             <h2 className="special-product__text">
-              <div className="special-product__link">Sản phẩm nổi bật</div>
+              <div className="special-product__link">Hot Products</div>
             </h2>
           </div>
           <Carousel

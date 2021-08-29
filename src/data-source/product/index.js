@@ -136,6 +136,7 @@ export const apiListMaterial = async (params) => {
 
 export const apiListProductByCategoryAndMaterial = async (params) => {
     try {
+        console.log("SOURCE PARAMS: ", params);
         const response = await GET("/product/get-by-category-and-material/", params);
         return {
             state: REQUEST_STATE.SUCCESS,

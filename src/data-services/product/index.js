@@ -166,6 +166,7 @@ export const productService = {
         })
     },
     listProductWithCategoryMaterial: function (requestParams) {
+        console.log("REQUEST_PARAMS: ", requestParams);
         return apiListProductByCategoryAndMaterial(requestParams).then(response => {
             response.data = response.data.map(item => {
                 return {

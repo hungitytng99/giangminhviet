@@ -13,7 +13,6 @@ import { productService } from 'src/data-services/product';
 import ContactForm from 'src/components/ContactForm';
 import { useState } from 'react';
 import Modal from 'react-modal';
-import Link from 'next/link'
 import Image from 'next/image'
 import Footer from "src/components/Layout/Footer";
 import Head from 'next/head'
@@ -28,7 +27,7 @@ interface Props {
 }
 Modal.setAppElement('#__next');
 const Product: NextPage<Props> = (props: any) => {
-  const { mainCategoryAndSubCategory = {}, detailProduct = {}, relatedProducts = {} } = props;
+  const { mainCategoryAndSubCategory = { }, detailProduct = { }, relatedProducts = { } } = props;
   const [contactModal, setContactModal] = useState(false);
 
   const showContactModal = (e: any) => {
@@ -104,11 +103,9 @@ const Product: NextPage<Props> = (props: any) => {
         <Row className="product__related-product">
           <div className="special-product">
             <h2 className="special-product__text">
-              <Link href="/" >
-                <a className="special-product__link">
-                  Sản phẩm cùng loại
-                </a>
-              </Link>
+              <div className="special-product__link">
+                Related Products
+              </div>
             </h2>
           </div>
           <ProductCardLists listProduct={relatedProducts} />
@@ -158,6 +155,13 @@ export async function getServerSideProps(context: any) {
   const relatedProducts = await productService.listProductBySubCategoryName(
     { main_category: detailProduct.data.main_category, category: detailProduct.data.sub_category, productsPerPage: 4, pageNumber: 1 }
   );
+  // filter product to show other product
+  relatedProducts.data = relatedProducts.data.filter((product: any) => {
+    if (product.id !== detailProduct.data.id) {
+      return product;
+    }
+  })
+
   return {
     props: {
       mainCategoryAndSubCategory: mainCategoryWithSub.data,

@@ -4,7 +4,7 @@ import { Breadcrumb, Col, Container, Row } from 'react-bootstrap';
 import ProductCardLists from 'src/components/ProductCardLists';
 import ContactPop from 'src/components/ContactPop';
 import { mainCategoryService } from 'src/data-services/category';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { productService } from 'src/data-services/product';
 import FullPageLoading from 'src/ui-source/Loading/FullPageLoading';
 import Image from 'next/image'
@@ -13,40 +13,42 @@ import Footer from "src/components/Layout/Footer";
 
 const Category = (props) => {
     const { listCategoryWithProduct = [], mainCategoryAndSubCategory = [] } = props;
-    // const [listCategoryWithProduct, setListCategoryWithProductState] = useState(listCategoryWithProduct);
+    const [listCategoryWithProductState, setListCategoryWithProductState] = useState(listCategoryWithProduct);
     const [isShowLoading, setIsShowLoading] = useState(false);
-    let statusFilter = {
-        mainCategory: 'all',
-        subCategory: 'all',
-        material: 'all',
-        orderType: 'all',
-    }
+    // console.log(listCategoryWithProductState);
+    // console.log("~~ : ", mainCategoryAndSubCategory);
     const [statusFilterStatus, setStatusFilterState] = useState({
-        mainCategory: 'all',
-        subCategory: 'all',
-        material: 'all',
-        orderType: 'all',
+        main_category_name: listCategoryWithProductState.mainName ? listCategoryWithProductState.mainName : 'All',
+        category_name: 'All',
+        material: 'All',
+        orderType: 'All',
     })
 
     const handleFilter = async (e) => {
         const targetFilterValue = e.target.value;
         const targetFilterName = e.target.getAttribute('name');
-        statusFilter[targetFilterName] = targetFilterValue;
-        setStatusFilterState(statusFilter);
+        statusFilterStatus[targetFilterName] = targetFilterValue;
+        setStatusFilterState(statusFilterStatus);
         setIsShowLoading(true);
-        const listProduct = await productService.listProductWithCategoryMaterial(statusFilter);
-        const newlistCategoryWithProductState = { ...listCategoryWithProduct, listProduct: listProduct.data };
+        const listProduct = await productService.listProductWithCategoryMaterial(statusFilterStatus);
+        const newlistCategoryWithProductState = { ...listCategoryWithProductState, listProduct: listProduct.data };
+        // listCategoryWithProductState = newlistCategoryWithProductState;
         setListCategoryWithProductState(newlistCategoryWithProductState);
         setIsShowLoading(false);
     }
 
-    const filterCategory = listCategoryWithProduct.subList;
-    const filterMaterial = listCategoryWithProduct.listMaterial;
+    const filterCategory = listCategoryWithProductState.subList;
+    const filterMaterial = listCategoryWithProductState.listMaterial;
     const filterSort = [
         { value: 'all', label: 'All' },
         { value: '2', label: 'Newest' },
         { value: '1', label: 'Oldest' }
     ]
+
+    // useEffect(() => {
+    //     console.log(listCategoryWithProduct);
+    // }, [])
+
     return (
         <>
             {isShowLoading && <FullPageLoading opacity={0.5} />}
@@ -57,21 +59,21 @@ const Category = (props) => {
                     <Breadcrumb className="product__breadcrumb">
                         <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
                         <Breadcrumb.Item active>
-                            {listCategoryWithProduct.mainName}
+                            {listCategoryWithProductState.mainName}
                         </Breadcrumb.Item>
                     </Breadcrumb>
                 </Row>
                 {
-                    listCategoryWithProduct.mainId &&
+                    listCategoryWithProductState.mainId &&
                     <Row className="category-page__banner">
                         <div className="category-page__img-box">
                             {
-                                listCategoryWithProduct.subMainImage &&
-                                <Image layout="fill" objectFit="cover" src={listCategoryWithProduct.subMainImage} alt={listCategoryWithProduct.mainName} />
+                                listCategoryWithProductState.subMainImage &&
+                                <Image layout="fill" objectFit="cover" src={listCategoryWithProductState.subMainImage} alt={listCategoryWithProductState.mainName} />
                             }
                         </div>
                         <div className="category-page__banner-desc">
-                            {listCategoryWithProduct.mainDesc}
+                            {listCategoryWithProductState.mainDesc}
                         </div>
                     </Row>
                 }
@@ -85,18 +87,21 @@ const Category = (props) => {
                     </div>
                     <div className="category-page__filter-box">
                         {
-                            listCategoryWithProduct.mainId &&
+                            listCategoryWithProductState.mainId &&
                             <div className="category-page__filter-field">
                                 <select
-                                    name="subCategory"
-                                    value={statusFilterStatus.subcategory}
+                                    name="category_name"
+                                    value={statusFilterStatus.category}
                                     onChange={handleFilter}
                                     className="category-page__filter-select"
                                 >
                                     {
                                         filterCategory.map((item) => {
                                             return (
-                                                <option key={item.value} className="category-page__filter-option" value={item.value}>{item.label}</option>
+                                                item.label === listCategoryWithProductState.subName ?
+                                                    <option selected key={item.value} className="category-page__filter-option" value={item.value}>{item.label}</option> :
+                                                    <option key={item.value} className="category-page__filter-option" value={item.value}>{item.label}</option>
+                                            
                                             )
                                         })
                                     }
@@ -111,7 +116,7 @@ const Category = (props) => {
                                 className="category-page__filter-select"
                             >
                                 {
-                                    filterMaterial.map((item) => {
+                                    filterMaterial && filterMaterial.map((item) => {
                                         return (
                                             <option key={item.value} className="category-page__filter-option" value={item.value}>{item.label}</option>
                                         )
@@ -122,7 +127,7 @@ const Category = (props) => {
                     </div>
                     <div className="category-page__title-box">
                         <div className="category-page__title">
-                            {listCategoryWithProduct.mainName}
+                            {listCategoryWithProductState.mainName}
                         </div>
                         <div className="category-page__sort">
                             <div className="category-page__sort-select">
@@ -143,7 +148,7 @@ const Category = (props) => {
                             </div>
                         </div>
                     </div>
-                    <ProductCardLists listProduct={listCategoryWithProduct.listProduct} />
+                    <ProductCardLists listProduct={listCategoryWithProductState.listProduct} />
                 </div>
             </Container>
             <Footer />
@@ -165,6 +170,7 @@ export async function getServerSideProps(context) {
     // list material
     const listMaterial = await productService.listAllMaterial();
     const mainCategoryWithSub = await mainCategoryService.listCategoryWithSubCategory();
+    let subCategoryDetail;
 
     // if not mainid => list all product
     if (!mainId) {
@@ -174,7 +180,7 @@ export async function getServerSideProps(context) {
 
         // if mainId + subId => list available product
         if (subId) {
-            let subCategoryDetail = await mainCategoryService.detailSubCategoryAsync(subId);
+            subCategoryDetail = await mainCategoryService.detailSubCategoryAsync(subId);
             listProduct = await productService.listProductBySubCategoryName(
                 { main_category: detailMain.data.name, category: subCategoryDetail.data.name, productsPerPage: 8, pageNumber: 1 }
             );
@@ -185,11 +191,12 @@ export async function getServerSideProps(context) {
     }
     let listCategoryWithProduct = {
         mainId: mainId || '',
-        mainName: detailMain.data.name || 'All Product',
+        mainName: detailMain.data.name || 'All',
         mainImage: detailMain.data.image || '',
-        subMainImage: detailMain.data.sub_image,
+        subMainImage: detailMain.data.sub_image || '',
         mainDesc: detailMain.data.description || '',
         subId: subId || '',
+        subName: subCategoryDetail?.data.name || '',
         subList: [{ value: "all", label: "All" }, ...detailMain?.data?.sub_category?.map((item) => {
             return {
                 value: item.name,
