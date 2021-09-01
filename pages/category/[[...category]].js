@@ -174,7 +174,7 @@ export async function getServerSideProps(context) {
 
     // if not mainid => list all product
     if (!mainId) {
-        listProduct = await productService.listProductAsync({ productsPerPage: 24, pageNumber: 1 });
+        listProduct = await productService.listProductAsync({ productsPerPage: 36, pageNumber: 1 });
     } else {
         detailMain = await mainCategoryService.detailMainCategoryByIdAsync(mainId);
 
