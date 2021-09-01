@@ -66,7 +66,7 @@ const Search = (props) => {
                             <div><strong>Question 2. Can I order samples? How samples sent?</strong></div>
                             <div><strong>Answer:</strong> Yes, samples are available! Samples in small pieces are carefully packed and shipped by DHL FEDEX TNT in order to minimize shipping time with affordable cost for customers!</div>
                             <div><strong>Question 3: How about OEM?</strong></div>
-                            <div><strong>Answer:</strong> Fully accept customize production according to customer's requirement of brand color / logo etc.</div>
+                            <div><strong>Answer:</strong> Fully accept customize production according to customer&apos;s requirement of brand color / logo etc.</div>
                         </div>
                     </Col>
                     <Col sm={12} md={6}>

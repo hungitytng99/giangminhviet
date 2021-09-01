@@ -113,14 +113,20 @@ const Header = ({ listCategory = [] }) => {
                             </div>
                         </li>
                         <li className="header-center__item">
-                            <a href="/about-us" className="header-center__item-link">
-                                About us
-                            </a>
+                            <Link href="/about-us" passHref>
+                                <a className="header-center__item-link">
+                                    About us
+                                </a>
+                            </Link>
+
                         </li>
                         <li className="header-center__item">
-                            <a href="/contact" className="header-center__item-link">
-                                Contact
-                            </a>
+                            <Link href="/contact" passHref>
+                                <a className="header-center__item-link">
+                                    Contact
+                                </a>
+                            </Link>
+
                         </li>
                     </ul>
                 </div>

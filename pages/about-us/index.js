@@ -31,7 +31,7 @@ const Search = (props) => {
                                     quality control system, our products have been exported to over 20 countries
                                     and areas such as: USA, Canada, UK, France, Germany, Australia, New Zealand,
                                     Korea, China, Iran, Saudi Arabia, India, Philippines. We offer OEM service and
-                                    willing to support customer's own design. With our attempt to export Vietnamese handmade
+                                    willing to support customer&apos;s own design. With our attempt to export Vietnamese handmade
                                     products outbound over the years, GIANG MINH VIET CO., LTD is a trustworthy company
                                     where you can find a wide variety range of products with high quality and attractive
                                     design by sophisticated workmanships but reasonable price! Furthermore, with an
