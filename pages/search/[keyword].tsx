@@ -58,7 +58,6 @@ const Search: NextPage<Props> = (props: any) => {
 }
 export async function getServerSideProps(context: any) {
     const { keyword } = context.params;
-
     const mainCategoryWithSub = await mainCategoryService.listCategoryWithSubCategory();
     const listProduct = await productService.listProductAsync({ search: keyword });
     const suggestProduct = await productService.listProductAsync({ productsPerPage: 8, pageNumber: 1 });

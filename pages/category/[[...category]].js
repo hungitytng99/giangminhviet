@@ -24,6 +24,10 @@ const Category = (props) => {
         orderType: 'All',
     })
 
+    useEffect(() => {
+        setListCategoryWithProductState(listCategoryWithProduct);
+    })
+
     const handleFilter = async (e) => {
         const targetFilterValue = e.target.value;
         const targetFilterName = e.target.getAttribute('name');
@@ -101,7 +105,7 @@ const Category = (props) => {
                                                 item.label === listCategoryWithProductState.subName ?
                                                     <option selected key={item.value} className="category-page__filter-option" value={item.value}>{item.label}</option> :
                                                     <option key={item.value} className="category-page__filter-option" value={item.value}>{item.label}</option>
-                                            
+
                                             )
                                         })
                                     }
