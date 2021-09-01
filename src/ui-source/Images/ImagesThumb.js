@@ -9,6 +9,7 @@ import 'react-medium-image-zoom/dist/styles.css'
 // [{ src: ImagesPath.PRODUCT.src, alt: "" }, { src: ImagesPath.PRODUCT_2.src, alt: "" }, { src: ImagesPath.SP.src, alt: "" }]
 const ImagesThumb = ({ listImages }) => {
     let count = -1;
+    console.log(listImages);
     listImages = listImages.map((item, index) => {
         count++;
         return {
