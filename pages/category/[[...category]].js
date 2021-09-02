@@ -13,30 +13,27 @@ import Footer from "src/components/Layout/Footer";
 
 const Category = (props) => {
     const { listCategoryWithProduct = [], mainCategoryAndSubCategory = [] } = props;
-    const [listCategoryWithProductState, setListCategoryWithProductState] = useState(listCategoryWithProduct);
+    const [listCategoryWithProductState, setListCategoryWithProductState] = useState({ ...listCategoryWithProduct });
     const [isShowLoading, setIsShowLoading] = useState(false);
-    // console.log(listCategoryWithProductState);
-    // console.log("~~ : ", mainCategoryAndSubCategory);
-    const [statusFilterStatus, setStatusFilterState] = useState({
-        main_category_name: listCategoryWithProductState.mainName ? listCategoryWithProductState.mainName : 'All',
+    const initialStatusFilter = {
+        main_category_name: listCategoryWithProduct.mainName ? listCategoryWithProduct.mainName : 'All',
         category_name: 'All',
         material: 'All',
         orderType: 'All',
-    })
-
-    useEffect(() => {
+    }
+    console.log("LIST: ", listCategoryWithProduct);
+    const [statusFilterState, setStatusFilterState] = useState(initialStatusFilter)
+    if (listCategoryWithProductState.mainId !== listCategoryWithProduct.mainId) {
         setListCategoryWithProductState(listCategoryWithProduct);
-    })
+        setStatusFilterState(initialStatusFilter);
+    }
 
     const handleFilter = async (e) => {
-        const targetFilterValue = e.target.value;
-        const targetFilterName = e.target.getAttribute('name');
-        statusFilterStatus[targetFilterName] = targetFilterValue;
-        setStatusFilterState(statusFilterStatus);
         setIsShowLoading(true);
-        const listProduct = await productService.listProductWithCategoryMaterial(statusFilterStatus);
+        const targetFilterValue = e.target.value;
+        setStatusFilterState({ ...statusFilterState, [e.target.getAttribute('name')]: targetFilterValue });
+        const listProduct = await productService.listProductWithCategoryMaterial({ ...statusFilterState, [e.target.getAttribute('name')]: targetFilterValue });
         const newlistCategoryWithProductState = { ...listCategoryWithProductState, listProduct: listProduct.data };
-        // listCategoryWithProductState = newlistCategoryWithProductState;
         setListCategoryWithProductState(newlistCategoryWithProductState);
         setIsShowLoading(false);
     }
@@ -48,10 +45,6 @@ const Category = (props) => {
         { value: '2', label: 'Newest' },
         { value: '1', label: 'Oldest' }
     ]
-
-    // useEffect(() => {
-    //     console.log(listCategoryWithProduct);
-    // }, [])
 
     return (
         <>
@@ -84,10 +77,7 @@ const Category = (props) => {
 
                 <div className="category-page__filter">
                     <div className="category-page__filter-header">
-                        Bộ lọc sản phẩm
-                    </div>
-                    <div className="category-page__filter-desc">
-                        Giúp lọc nhanh sản phẩm bạn tìm kiếm
+                        Filter the products
                     </div>
                     <div className="category-page__filter-box">
                         {
@@ -95,17 +85,14 @@ const Category = (props) => {
                             <div className="category-page__filter-field">
                                 <select
                                     name="category_name"
-                                    value={statusFilterStatus.category}
+                                    value={statusFilterState.category}
                                     onChange={handleFilter}
                                     className="category-page__filter-select"
                                 >
                                     {
                                         filterCategory.map((item) => {
                                             return (
-                                                item.label === listCategoryWithProductState.subName ?
-                                                    <option selected key={item.value} className="category-page__filter-option" value={item.value}>{item.label}</option> :
-                                                    <option key={item.value} className="category-page__filter-option" value={item.value}>{item.label}</option>
-
+                                                <option key={item.value} className="category-page__filter-option" value={item.value}>{item.label}</option>
                                             )
                                         })
                                     }
@@ -115,7 +102,7 @@ const Category = (props) => {
                         <div className="category-page__filter-field">
                             <select
                                 name="material"
-                                value={statusFilterStatus.material}
+                                value={statusFilterState.material}
                                 onChange={handleFilter}
                                 className="category-page__filter-select"
                             >
@@ -137,7 +124,7 @@ const Category = (props) => {
                             <div className="category-page__sort-select">
                                 <select
                                     name="orderType"
-                                    value={statusFilterStatus.orderType}
+                                    value={statusFilterState.orderType}
                                     onChange={handleFilter}
                                     className="category-page__filter-select"
                                 >
@@ -178,7 +165,7 @@ export async function getServerSideProps(context) {
 
     // if not mainid => list all product
     if (!mainId) {
-        listProduct = await productService.listProductAsync({ productsPerPage: 36, pageNumber: 1 });
+        listProduct = await productService.listProductAsync();
     } else {
         detailMain = await mainCategoryService.detailMainCategoryByIdAsync(mainId);
 
@@ -186,11 +173,11 @@ export async function getServerSideProps(context) {
         if (subId) {
             subCategoryDetail = await mainCategoryService.detailSubCategoryAsync(subId);
             listProduct = await productService.listProductBySubCategoryName(
-                { main_category: detailMain.data.name, category: subCategoryDetail.data.name, productsPerPage: 8, pageNumber: 1 }
+                { main_category: detailMain.data.name, category: subCategoryDetail.data.name }
             );
             // if mainId + no subId => get by main category ID
         } else {
-            listProduct = await productService.listProductByCategoryId(mainId, { productsPerPage: 8, pageNumber: 1 })
+            listProduct = await productService.listProductByCategoryId(mainId)
         }
     }
     let listCategoryWithProduct = {
