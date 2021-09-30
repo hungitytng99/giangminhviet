@@ -1,6 +1,6 @@
 // config for dev;
 export const Configs = {
-    BASE_API: "http://103.163.118.206:4000/api",
+    BASE_API: "https://api.giangminhviet.com/api",
 
     CURRENT_PAGE: 1,
     FILE_MAXIMUM: 2, //MB
