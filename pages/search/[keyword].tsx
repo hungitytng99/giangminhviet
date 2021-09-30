@@ -24,11 +24,11 @@ const Search: NextPage<Props> = (props: any) => {
                         {
                             listProduct.length == 0 ?
                                 <div className="search__notify">
-                                    Không có bất ký kết quả nào phù hợp với từ khóa &quot;<span>{keyword}</span>&quot;
+                                    No results for keyword &quot;<span>{keyword}</span>&quot;
                                 </div>
                                 :
                                 <div className="search__notify">
-                                    Có <span className="amount">{listProduct.length}</span> kết quả tìm kiếm phù hợp với từ khóa &quot;<span className="keyword">{keyword}</span>&quot;
+                                    Have <span className="amount">{listProduct.length}</span> results for keyword: &quot;<span className="keyword">{keyword}</span>&quot;
                                 </div>
                         }
                         {/* <div className="search__box">
@@ -44,15 +44,13 @@ const Search: NextPage<Props> = (props: any) => {
                 <Row className="search__other-result">
                     <div className="special-product">
                         <h2 className="special-product__text">
-                            <Link href="/">
-                                <a className="special-product__link">Sản phẩm khác</a>
-                            </Link>
+                            <div className="special-product__link">Related Products</div>
                         </h2>
                     </div>
                     <ProductCardLists listProduct={suggestProduct} />
                 </Row>
             </Container>
-            <Footer/>
+            <Footer />
         </>
     )
 }
