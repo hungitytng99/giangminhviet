@@ -22,6 +22,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta name="keywords" content="home decor,wall hanging,wall decor,seagrass basket,wall hangings for home decor,wall hangings for home decor,Placemat,placemats for dining table,placemat woven,seagrass placemat,water hyacinth placemat,natural placemat,wicker charger plates
         ,wall mirror decorative,rattan mirror,rattan furniture,vintage mirror,hand mirror,bamboo tray,bamboo lamp,bamboo basket,bamboo plates"></meta>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+        <meta property="og:image" content="https://giangminhviet.com/_next/image?url=%2F_next%2Fstatic%2Fimage%2Fpublic%2Flogo_ngang.f59f77d149ec8d110a53efa6463190c2.png&w=1920&q=75" />
+        <meta property="og:title" content="Giang Minh Viet CO., LTD" />
+        <meta name="og:description" content="GIANG MINH VIET COMPANY LIMITED is one of the Vietnamese manufacturers of handicrafts over a past few decades. Our handwoven factory covers 10.000-15.000m2, which specializes in producing different kinds of natural material such as water hyacinth, rattan, bamboo, seagrass, corn and palm leaves. With strict quality control system, our products have been exported to over 20 countries and areas such as: USA, Canada, UK, France, Germany, Australia, New Zealand, Korea, China, Iran, Saudi Arabia, India, Philippines ,^ We offer OEM service and willing to support customer's own design. With our attempt to export Vietnamese handmade products outbound over the years, GIANG MINH VIET CO., LTD is a trustworthy company where you can find a wide variety range of products with high quality and attractive design by sophisticated workmanships but reasonable price! Furthermore, with an enthusiastic and professional working team, we will definitely provide you the best service and after-service ever." />
       </Head>
       <Component {...pageProps} />
     </>
